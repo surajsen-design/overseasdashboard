@@ -1,54 +1,41 @@
-<!-- =========================================
-OVERSEAS GLOBAL INTELLIGENCE DASHBOARD v3
-Compact + Advanced + Interactive
-DIRECT DEPLOY READY
-========================================= -->
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
-<meta charset="UTF-8"/>
+<meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Overseas Global Dashboard</title>
+<title>Overseas Online Tracker X</title>
 
-<!-- FONTS -->
-
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-<!-- CHART -->
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet"/>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<!-- MAP -->
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<link
+rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"
+/>
 
 <style>
 
 :root{
-
---bg:#070b16;
---bg2:#0d1528;
-
---card:#111b33;
---card2:#152241;
-
---border:#22385e;
-
---cyan:#00d9ff;
---green:#00ff99;
---red:#ff4d6d;
---orange:#ffb84d;
+--bg:#07101f;
+--bg2:#0d1728;
+--panel:#101b30;
+--panel2:#162540;
+--border:#203457;
+--text:#eaf2ff;
+--text2:#9fb3d1;
+--text3:#5d7191;
+--accent:#00c6ff;
+--green:#00e676;
+--red:#ff4569;
+--orange:#ffb74d;
 --purple:#b388ff;
-
---text:#eef5ff;
---text2:#91a8ca;
---text3:#5f7598;
-
+--cyan:#26c6da;
+--yellow:#ffee58;
 }
 
 *{
@@ -58,41 +45,47 @@ box-sizing:border-box;
 }
 
 body{
-
-font-family:'Inter',sans-serif;
-
-background:
-radial-gradient(circle at top left,#0c2347 0%,transparent 30%),
-radial-gradient(circle at bottom right,#07172f 0%,transparent 30%),
-var(--bg);
-
+background:linear-gradient(180deg,#050b16,#091221);
 color:var(--text);
-
+font-family:'IBM Plex Sans',sans-serif;
 min-height:100vh;
+overflow-x:hidden;
+}
 
+/* SCROLL */
+
+::-webkit-scrollbar{
+width:8px;
+height:8px;
+}
+
+::-webkit-scrollbar-thumb{
+background:#203457;
+border-radius:10px;
 }
 
 /* TOPBAR */
 
 .topbar{
 
-height:68px;
+height:74px;
 
-padding:0 22px;
+background:
+linear-gradient(90deg,#07101f,#0f1f38);
+
+border-bottom:1px solid var(--border);
+
+padding:0 24px;
 
 display:flex;
 align-items:center;
 justify-content:space-between;
 
-border-bottom:1px solid var(--border);
-
-background:rgba(7,11,22,.85);
-
-backdrop-filter:blur(12px);
-
 position:sticky;
 top:0;
 z-index:999;
+
+backdrop-filter:blur(10px);
 
 }
 
@@ -104,61 +97,51 @@ gap:14px;
 
 .logo{
 
-width:44px;
-height:44px;
+width:48px;
+height:48px;
+border-radius:14px;
 
-border-radius:12px;
-
-background:linear-gradient(135deg,#0066ff,#00d9ff);
+background:
+linear-gradient(135deg,#0072ff,#00c6ff);
 
 display:flex;
 align-items:center;
 justify-content:center;
 
-font-size:20px;
+font-size:22px;
 
-box-shadow:0 0 20px rgba(0,217,255,.4);
+box-shadow:
+0 0 25px rgba(0,198,255,.4);
 
 }
 
-.title{
-
+.brand h1{
 font-family:'Rajdhani',sans-serif;
 font-size:24px;
-font-weight:700;
-
+letter-spacing:1px;
 }
 
-.sub{
-
-font-size:10px;
-letter-spacing:2px;
+.brand p{
+font-size:11px;
 color:var(--text3);
-
+font-family:'IBM Plex Mono',monospace;
 }
 
 .live{
-
 display:flex;
 align-items:center;
 gap:8px;
-
 font-size:12px;
+font-family:'IBM Plex Mono',monospace;
 color:var(--green);
-
 }
 
 .dot{
-
-width:9px;
-height:9px;
-
-background:var(--green);
-
+width:8px;
+height:8px;
 border-radius:50%;
-
-animation:pulse 1.2s infinite;
-
+background:var(--green);
+animation:pulse 1.5s infinite;
 }
 
 @keyframes pulse{
@@ -169,29 +152,35 @@ animation:pulse 1.2s infinite;
 
 }
 
-/* FILTER */
+/* FILTERS */
 
 .filters{
 
-padding:14px 22px;
+padding:16px 24px;
 
 display:flex;
 gap:10px;
 flex-wrap:wrap;
 
+background:#0b1526;
+
 border-bottom:1px solid var(--border);
+
+position:sticky;
+top:74px;
+z-index:998;
 
 }
 
-select,input{
+select,button{
 
-background:var(--card);
+background:var(--panel);
 
 border:1px solid var(--border);
 
 color:var(--text);
 
-padding:10px 12px;
+padding:10px 14px;
 
 border-radius:10px;
 
@@ -199,56 +188,44 @@ font-size:12px;
 
 }
 
-input{
-width:220px;
+button{
+cursor:pointer;
+transition:.25s;
 }
 
-button{
-
-background:linear-gradient(135deg,#0066ff,#00d9ff);
-
-border:none;
-
-color:white;
-
-padding:10px 14px;
-
-border-radius:10px;
-
-cursor:pointer;
-
-font-weight:600;
-
+button:hover{
+border-color:var(--accent);
+color:var(--accent);
+transform:translateY(-1px);
 }
 
 /* MAIN */
 
 .main{
-padding:20px;
+padding:24px;
 }
 
 /* KPI */
 
-.kpi-grid{
+.kpis{
 
 display:grid;
 grid-template-columns:repeat(6,1fr);
 
-gap:14px;
-
-margin-bottom:18px;
+gap:16px;
+margin-bottom:24px;
 
 }
 
 .kpi{
 
-background:linear-gradient(180deg,var(--card),var(--card2));
+background:linear-gradient(180deg,#101b30,#0c1526);
 
 border:1px solid var(--border);
 
-border-radius:16px;
+border-radius:18px;
 
-padding:16px;
+padding:20px;
 
 position:relative;
 overflow:hidden;
@@ -260,6 +237,8 @@ overflow:hidden;
 content:"";
 
 position:absolute;
+right:-20px;
+top:-20px;
 
 width:90px;
 height:90px;
@@ -267,9 +246,6 @@ height:90px;
 background:rgba(255,255,255,.03);
 
 border-radius:50%;
-
-top:-30px;
-right:-20px;
 
 }
 
@@ -282,15 +258,15 @@ align-items:center;
 }
 
 .kpi-icon{
-font-size:18px;
+font-size:22px;
 }
 
 .kpi-value{
 
-font-size:34px;
+font-size:38px;
+font-weight:700;
 
 font-family:'Rajdhani',sans-serif;
-font-weight:700;
 
 margin-top:8px;
 
@@ -300,17 +276,22 @@ margin-top:8px;
 
 font-size:11px;
 
+letter-spacing:1px;
+text-transform:uppercase;
+
 color:var(--text3);
 
-margin-top:2px;
+margin-top:6px;
 
 }
 
 .kpi-sub{
 
-font-size:10px;
-
 margin-top:6px;
+
+font-size:11px;
+
+font-family:'IBM Plex Mono',monospace;
 
 color:var(--text2);
 
@@ -318,33 +299,25 @@ color:var(--text2);
 
 /* GRID */
 
-.grid{
-
+.grid2{
 display:grid;
-grid-template-columns:2fr 1fr;
-
-gap:18px;
-
-margin-bottom:18px;
-
+grid-template-columns:1.2fr .8fr;
+gap:20px;
+margin-bottom:24px;
 }
 
-.grid2{
-
+.grid3{
 display:grid;
-grid-template-columns:1fr 1fr;
-
-gap:18px;
-
-margin-bottom:18px;
-
+grid-template-columns:1fr 1fr 1fr;
+gap:20px;
+margin-bottom:24px;
 }
 
 /* PANEL */
 
 .panel{
 
-background:linear-gradient(180deg,var(--card),#0d1830);
+background:linear-gradient(180deg,#101b30,#0d1728);
 
 border:1px solid var(--border);
 
@@ -352,11 +325,14 @@ border-radius:18px;
 
 overflow:hidden;
 
+box-shadow:
+0 8px 25px rgba(0,0,0,.2);
+
 }
 
 .panel-head{
 
-padding:14px 16px;
+padding:14px 18px;
 
 border-bottom:1px solid var(--border);
 
@@ -364,41 +340,25 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 
+background:rgba(255,255,255,.02);
+
 }
 
 .panel-title{
 
-font-family:'Rajdhani',sans-serif;
-font-size:16px;
+font-size:14px;
 font-weight:700;
+font-family:'Rajdhani',sans-serif;
 
 letter-spacing:1px;
 
 }
 
 .panel-body{
-padding:16px;
-}
-
-/* MAP */
-
-#map{
-
-height:420px;
-border-radius:14px;
-
-overflow:hidden;
-
+padding:18px;
 }
 
 /* TABLE */
-
-.table-wrap{
-
-max-height:420px;
-overflow:auto;
-
-}
 
 table{
 width:100%;
@@ -407,18 +367,17 @@ border-collapse:collapse;
 
 th{
 
-position:sticky;
-top:0;
-
-background:#121e38;
-
-padding:10px;
-
-font-size:10px;
+padding:12px;
 
 text-align:left;
 
+font-size:10px;
+
+letter-spacing:1px;
+
 color:var(--text3);
+
+font-family:'IBM Plex Mono',monospace;
 
 border-bottom:1px solid var(--border);
 
@@ -426,57 +385,67 @@ border-bottom:1px solid var(--border);
 
 td{
 
-padding:11px 10px;
+padding:12px;
 
 font-size:12px;
+
+color:var(--text2);
 
 border-bottom:1px solid rgba(255,255,255,.04);
 
 }
 
-tr:hover{
-background:rgba(255,255,255,.03);
+tr:hover td{
+background:rgba(255,255,255,.02);
 }
 
-/* BADGES */
+/* MAP */
 
-.badge{
+#worldMap{
+height:500px;
+border-radius:14px;
+overflow:hidden;
+}
 
-padding:4px 8px;
+/* CHIPS */
 
-border-radius:30px;
+.chip{
+
+padding:4px 10px;
+border-radius:20px;
 
 font-size:10px;
-font-weight:600;
+
+font-family:'IBM Plex Mono',monospace;
 
 }
 
 .green{
-background:rgba(0,255,153,.12);
+background:rgba(0,230,118,.12);
 color:var(--green);
 }
 
 .red{
-background:rgba(255,77,109,.12);
+background:rgba(255,69,105,.12);
 color:var(--red);
 }
 
 .orange{
-background:rgba(255,184,77,.12);
+background:rgba(255,183,77,.12);
 color:var(--orange);
 }
 
-/* CHART */
+/* CHART BOX */
 
-.chart{
-height:200px;
+.chartBox{
+height:320px;
 }
 
 /* FOOTER */
 
 .footer{
 
-padding:14px 22px;
+padding:18px 24px;
 
 border-top:1px solid var(--border);
 
@@ -487,21 +456,23 @@ font-size:11px;
 
 color:var(--text3);
 
+font-family:'IBM Plex Mono',monospace;
+
 }
 
 /* MOBILE */
 
 @media(max-width:1200px){
 
-.kpi-grid{
+.kpis{
 grid-template-columns:repeat(3,1fr);
 }
 
-.grid{
+.grid2{
 grid-template-columns:1fr;
 }
 
-.grid2{
+.grid3{
 grid-template-columns:1fr;
 }
 
@@ -509,7 +480,7 @@ grid-template-columns:1fr;
 
 @media(max-width:700px){
 
-.kpi-grid{
+.kpis{
 grid-template-columns:1fr;
 }
 
@@ -520,7 +491,7 @@ grid-template-columns:1fr;
 
 <body>
 
-<!-- TOPBAR -->
+<!-- TOP -->
 
 <div class="topbar">
 
@@ -529,25 +500,15 @@ grid-template-columns:1fr;
 <div class="logo">🌍</div>
 
 <div>
-
-<div class="title">
-OVERSEAS GLOBAL TRACKER
-</div>
-
-<div class="sub">
-LIVE OPERATIONS INTELLIGENCE
-</div>
-
+<h1>OVERSEAS ONLINE TRACKER X</h1>
+<p>GLOBAL CALLING + TEST ANALYTICS SYSTEM</p>
 </div>
 
 </div>
 
 <div class="live">
-
 <div class="dot"></div>
-
-LIVE
-
+LIVE SYNC
 </div>
 
 </div>
@@ -556,10 +517,8 @@ LIVE
 
 <div class="filters">
 
-<select id="gradeFilter" onchange="applyFilters()">
-
+<select id="fGrade" onchange="applyFilters()">
 <option value="">All Grades</option>
-
 <option>6</option>
 <option>7</option>
 <option>8</option>
@@ -567,41 +526,25 @@ LIVE
 <option>10</option>
 <option>11</option>
 <option>12</option>
-
 </select>
 
-<select id="countryFilter" onchange="applyFilters()">
-
+<select id="fCountry" onchange="applyFilters()">
 <option value="">All Countries</option>
-
 <option>UAE</option>
 <option>QATAR</option>
 <option>KUWAIT</option>
 <option>BAHRAIN</option>
 <option>OMAN</option>
 <option>SAUDI ARABIA</option>
-
 </select>
 
-<select id="callFilter" onchange="applyFilters()">
-
-<option value="">All Status</option>
-
+<select id="fCall" onchange="applyFilters()">
+<option value="">All Calling</option>
 <option value="CALLED">Called</option>
 <option value="PENDING">Pending</option>
-
 </select>
 
-<input
-type="text"
-placeholder="Search student..."
-id="searchInput"
-onkeyup="applyFilters()"
-/>
-
-<button onclick="loadData()">
-Refresh
-</button>
+<button onclick="resetFilters()">Reset</button>
 
 </div>
 
@@ -611,82 +554,92 @@ Refresh
 
 <!-- KPI -->
 
-<div class="kpi-grid">
+<div class="kpis">
 
 <div class="kpi">
 <div class="kpi-top">
-<div>👥</div>
+<div class="kpi-icon">👨‍🎓</div>
 </div>
 <div class="kpi-value" id="kTotal">0</div>
-<div class="kpi-label">TOTAL STUDENTS</div>
-<div class="kpi-sub">Global Database</div>
+<div class="kpi-label">Total Students</div>
+<div class="kpi-sub" id="kSub1"></div>
 </div>
 
 <div class="kpi">
 <div class="kpi-top">
-<div>📞</div>
+<div class="kpi-icon">📞</div>
 </div>
-<div class="kpi-value" style="color:var(--green)" id="kCalled">0</div>
-<div class="kpi-label">CALLING DONE</div>
-<div class="kpi-sub">Completed Calls</div>
-</div>
-
-<div class="kpi">
-<div class="kpi-top">
-<div>⏳</div>
-</div>
-<div class="kpi-value" style="color:var(--red)" id="kPending">0</div>
-<div class="kpi-label">PENDING</div>
-<div class="kpi-sub">Need Follow-up</div>
+<div class="kpi-value" style="color:var(--green)" id="kCalled">0%</div>
+<div class="kpi-label">Calling Done</div>
+<div class="kpi-sub" id="kSub2"></div>
 </div>
 
 <div class="kpi">
 <div class="kpi-top">
-<div>✅</div>
+<div class="kpi-icon">✅</div>
 </div>
-<div class="kpi-value" style="color:var(--cyan)" id="kAttend">0%</div>
-<div class="kpi-label">ATTENDANCE</div>
-<div class="kpi-sub">Present Students</div>
+<div class="kpi-value" style="color:#29b6f6" id="kAttend">0%</div>
+<div class="kpi-label">Attendance</div>
+<div class="kpi-sub" id="kSub3"></div>
 </div>
 
 <div class="kpi">
 <div class="kpi-top">
-<div>🏆</div>
+<div class="kpi-icon">🏆</div>
 </div>
 <div class="kpi-value" style="color:var(--orange)" id="kAvg">0%</div>
-<div class="kpi-label">AVG SCORE</div>
-<div class="kpi-sub">Performance</div>
+<div class="kpi-label">Average Score</div>
+<div class="kpi-sub" id="kSub4"></div>
 </div>
 
 <div class="kpi">
 <div class="kpi-top">
-<div>🌐</div>
+<div class="kpi-icon">⏳</div>
 </div>
-<div class="kpi-value" style="color:var(--purple)" id="kCountries">0</div>
-<div class="kpi-label">COUNTRIES</div>
-<div class="kpi-sub">Global Reach</div>
+<div class="kpi-value" style="color:var(--red)" id="kPending">0</div>
+<div class="kpi-label">Pending Calls</div>
+<div class="kpi-sub" id="kSub5"></div>
+</div>
+
+<div class="kpi">
+<div class="kpi-top">
+<div class="kpi-icon">📋</div>
+</div>
+<div class="kpi-value" style="color:var(--purple)" id="kTests">0</div>
+<div class="kpi-label">Tests</div>
+<div class="kpi-sub" id="kSub6"></div>
 </div>
 
 </div>
 
-<!-- MAP + DONUT -->
+<!-- MAP -->
 
-<div class="grid">
+<div class="panel" style="margin-bottom:24px;">
+
+<div class="panel-head">
+<div class="panel-title">GLOBAL STUDENT HEAT MAP</div>
+</div>
+
+<div class="panel-body">
+<div id="worldMap"></div>
+</div>
+
+</div>
+
+<!-- CHARTS -->
+
+<div class="grid3">
 
 <div class="panel">
 
 <div class="panel-head">
-
-<div class="panel-title">
-🌎 GLOBAL LIVE MAP
-</div>
-
+<div class="panel-title">COUNTRY WISE STUDENTS</div>
 </div>
 
 <div class="panel-body">
-
-<div id="map"></div>
-
+<div class="chartBox">
+<canvas id="countryChart"></canvas>
+</div>
 </div>
 
 </div>
@@ -694,64 +647,60 @@ Refresh
 <div class="panel">
 
 <div class="panel-head">
-
-<div class="panel-title">
-📊 LIVE STATUS
-</div>
-
+<div class="panel-title">CALLING STATUS</div>
 </div>
 
 <div class="panel-body">
-
-<div class="chart">
-<canvas id="donutChart"></canvas>
+<div class="chartBox">
+<canvas id="callChart"></canvas>
+</div>
 </div>
 
-<hr style="border-color:#203863;margin:18px 0">
+</div>
 
-<div class="chart">
+<div class="panel">
+
+<div class="panel-head">
+<div class="panel-title">GRADE ANALYTICS</div>
+</div>
+
+<div class="panel-body">
+<div class="chartBox">
 <canvas id="gradeChart"></canvas>
 </div>
-
 </div>
 
 </div>
 
 </div>
 
-<!-- TABLES -->
+<!-- TABLE -->
 
 <div class="grid2">
 
 <div class="panel">
 
 <div class="panel-head">
-
-<div class="panel-title">
-🌍 COUNTRY ANALYTICS
+<div class="panel-title">COUNTRY ANALYTICS</div>
 </div>
 
-</div>
-
-<div class="panel-body table-wrap">
+<div class="panel-body">
 
 <table>
 
 <thead>
 
 <tr>
-
 <th>Country</th>
 <th>Total</th>
-<th>Called</th>
-<th>Pending</th>
-<th>Attendance</th>
-
+<th>Present</th>
+<th>Absent</th>
+<th>Calling</th>
 </tr>
 
 </thead>
 
-<tbody id="countryTable"></tbody>
+<tbody id="countryBody"></tbody>
 
 </table>
 
@@ -762,32 +711,25 @@ Refresh
 <div class="panel">
 
 <div class="panel-head">
-
-<div class="panel-title">
-🚨 PENDING CALLS
+<div class="panel-title">PENDING CALLS</div>
 </div>
 
-</div>
-
-<div class="panel-body table-wrap">
+<div class="panel-body">
 
 <table>
 
 <thead>
 
 <tr>
-
-<th>#</th>
 <th>Name</th>
 <th>Country</th>
 <th>Grade</th>
 <th>Status</th>
-
 </tr>
 
 </thead>
 
-<tbody id="pendingTable"></tbody>
+<tbody id="pendingBody"></tbody>
 
 </table>
 
@@ -804,12 +746,10 @@ Refresh
 <div class="footer">
 
 <div>
-Overseas Global Intelligence Dashboard
+Overseas Tracker X
 </div>
 
-<div id="footerText">
-Loading...
-</div>
+<div id="footerStats"></div>
 
 </div>
 
@@ -817,28 +757,32 @@ Loading...
 
 /* YOUR WEB APP URL */
 
-const API =
+const SHEET_API =
 "https://script.google.com/macros/s/AKfycbwGD8hn_Bpo_qnZOQ5My9_u_R6sb8utNiRvq4ALxkwfwSn6m7W6w8NCkFgtFIbxBYrE/exec";
 
-/* COUNTRY LOCATIONS */
+let DATA = [];
+let filtered = [];
 
-const LOCATIONS = {
+let countryChart;
+let callChart;
+let gradeChart;
+
+/* COUNTRY COORDS */
+
+const countryCoords = {
 
 "UAE":[24.4539,54.3773],
-"QATAR":[25.2854,51.5310],
+"QATAR":[25.3548,51.1839],
 "KUWAIT":[29.3759,47.9774],
 "BAHRAIN":[26.0667,50.5577],
-"OMAN":[23.5880,58.3829],
-"SAUDI ARABIA":[24.7136,46.6753]
+"OMAN":[21.4735,55.9754],
+"SAUDI ARABIA":[23.8859,45.0792]
 
 };
 
-let DATA = [];
-let FILTERED = [];
-
-/* MAP */
-
-const map = L.map('map').setView([23,54],4);
+const map = L.map('worldMap',{
+zoomControl:true
+}).setView([23,55],4);
 
 L.tileLayer(
 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -853,54 +797,56 @@ let markers = [];
 
 async function loadData(){
 
-const res = await fetch(API);
+try{
 
-let raw = await res.json();
+const res = await fetch(SHEET_API);
 
-raw = raw.slice(1);
+const raw = await res.json();
 
-DATA = raw.map(r=>({
+DATA = raw.slice(1).map(r=>({
 
 test:r[0] || "",
 grade:r[1] || "",
-form:r[2] || "",
+formNo:r[2] || "",
 student:r[3] || "",
 country:(r[4] || "").toUpperCase(),
-score:Number(r[5]) || 0,
+score:Number(r[5] || 0),
 attendance:r[6] || "Absent",
 
 called:
 r[7] === true ||
 r[7] === "TRUE" ||
+r[7] === "YES" ||
 r[7] === "Yes"
 
 }));
 
-FILTERED = [...DATA];
+filtered = [...DATA];
 
 render();
 
+}catch(err){
+
+console.log(err);
+
 }
 
-/* FILTER */
+}
+
+/* FILTERS */
 
 function applyFilters(){
 
 const g =
-document.getElementById("gradeFilter").value;
+document.getElementById("fGrade").value;
 
 const c =
-document.getElementById("countryFilter").value;
+document.getElementById("fCountry").value;
 
 const s =
-document.getElementById("callFilter").value;
+document.getElementById("fCall").value;
 
-const q =
-document.getElementById("searchInput")
-.value
-.toLowerCase();
-
-FILTERED = DATA.filter(r=>{
+filtered = DATA.filter(r=>{
 
 if(g && r.grade != g)
 return false;
@@ -914,9 +860,6 @@ return false;
 if(s === "PENDING" && r.called)
 return false;
 
-if(q && !r.student.toLowerCase().includes(q))
-return false;
-
 return true;
 
 });
@@ -925,109 +868,175 @@ render();
 
 }
 
-/* RENDER */
+function resetFilters(){
 
-let donutChart;
-let gradeChart;
+document.getElementById("fGrade").value="";
+document.getElementById("fCountry").value="";
+document.getElementById("fCall").value="";
+
+filtered=[...DATA];
+
+render();
+
+}
+
+/* RENDER */
 
 function render(){
 
-const total = FILTERED.length;
+const total = filtered.length;
 
 const called =
-FILTERED.filter(x=>x.called).length;
+filtered.filter(r=>r.called).length;
 
 const pending =
 total - called;
 
 const present =
-FILTERED.filter(
-x=>x.attendance !== "Absent"
-).length;
+filtered.filter(r=>r.attendance==="Present").length;
 
-const attend =
+const absent =
+total - present;
+
+const callPct =
+total
+? Math.round(called/total*100)
+: 0;
+
+const attPct =
 total
 ? Math.round(present/total*100)
 : 0;
 
+const scores =
+filtered
+.filter(r=>r.attendance==="Present")
+.map(r=>r.score);
+
 const avg =
-FILTERED.length
+scores.length
 ? (
-FILTERED.reduce((a,b)=>a+b.score,0)
-/ FILTERED.length
+scores.reduce((a,b)=>a+b,0)
+/ scores.length
 ).toFixed(1)
 : 0;
 
 /* KPI */
 
-document.getElementById("kTotal").innerHTML = total;
-document.getElementById("kCalled").innerHTML = called;
-document.getElementById("kPending").innerHTML = pending;
-document.getElementById("kAttend").innerHTML = attend + "%";
-document.getElementById("kAvg").innerHTML = avg + "%";
+document.getElementById("kTotal").textContent =
+total;
 
-const countries =
-[...new Set(FILTERED.map(x=>x.country))];
+document.getElementById("kCalled").textContent =
+callPct + "%";
 
-document.getElementById("kCountries")
-.innerHTML =
-countries.length;
+document.getElementById("kAttend").textContent =
+attPct + "%";
 
-/* FOOTER */
+document.getElementById("kAvg").textContent =
+avg + "%";
 
-document.getElementById("footerText")
-.innerHTML =
-`${total} Records • ${called} Called • ${pending} Pending`;
+document.getElementById("kPending").textContent =
+pending;
 
-/* MAP */
+document.getElementById("kTests").textContent =
+[...new Set(filtered.map(r=>r.test))].length;
+
+document.getElementById("kSub1").textContent =
+called + " called";
+
+document.getElementById("kSub2").textContent =
+pending + " pending";
+
+document.getElementById("kSub3").textContent =
+present + " present";
+
+document.getElementById("kSub4").textContent =
+scores.length + " attempts";
+
+document.getElementById("kSub5").textContent =
+"Need action";
+
+document.getElementById("kSub6").textContent =
+"Live synced";
+
+/* COUNTRY MAP */
+
+const countryMap = {};
+
+filtered.forEach(r=>{
+
+const c = r.country || "OTHER";
+
+if(!countryMap[c]){
+
+countryMap[c] = {
+
+total:0,
+present:0,
+absent:0,
+called:0
+
+};
+
+}
+
+countryMap[c].total++;
+
+if(r.called)
+countryMap[c].called++;
+
+if(r.attendance==="Present")
+countryMap[c].present++;
+else
+countryMap[c].absent++;
+
+});
+
+/* MAP MARKERS */
 
 markers.forEach(m=>map.removeLayer(m));
 
-markers = [];
+markers=[];
 
-countries.forEach(c=>{
+Object.keys(countryMap).forEach(c=>{
 
-const rows =
-FILTERED.filter(x=>x.country === c);
+if(countryCoords[c]){
 
-if(!LOCATIONS[c]) return;
-
-const calledCount =
-rows.filter(x=>x.called).length;
+const d = countryMap[c];
 
 const pct =
-Math.round(calledCount/rows.length*100);
-
-let color =
-pct >= 75
-? "#00ff99"
-: pct >= 50
-? "#ffb84d"
-: "#ff4d6d";
+Math.round(
+d.called/d.total*100
+);
 
 const marker = L.circleMarker(
-
-LOCATIONS[c],
-
+countryCoords[c],
 {
-radius:10 + rows.length/8,
-color:color,
-fillColor:color,
-fillOpacity:.5
-}
+radius:10 + d.total/4,
+fillColor:
+pct >= 75
+? "#00e676"
+: pct >= 50
+? "#ffb74d"
+: "#ff4569",
 
+color:"#fff",
+weight:1,
+fillOpacity:.8
+
+}
 ).addTo(map);
 
 marker.bindPopup(`
 
-<div style="font-family:Arial">
+<div style="font-family:sans-serif">
 
-<h3>${c}</h3>
+<b>${c}</b><br><br>
 
-<b>Total:</b> ${rows.length}<br>
-<b>Called:</b> ${calledCount}<br>
-<b>Pending:</b> ${rows.length - calledCount}<br>
-<b>Calling %:</b> ${pct}%
+Students: ${d.total}<br>
+Present: ${d.present}<br>
+Absent: ${d.absent}<br>
+Calling: ${pct}%<br>
 
 </div>
 
@@ -1035,37 +1044,13 @@ marker.bindPopup(`
 
 markers.push(marker);
 
+}
+
 });
 
 /* COUNTRY TABLE */
 
-const countryMap = {};
-
-FILTERED.forEach(r=>{
-
-if(!countryMap[r.country]){
-
-countryMap[r.country] = {
-
-total:0,
-called:0,
-present:0
-
-};
-
-}
-
-countryMap[r.country].total++;
-
-if(r.called)
-countryMap[r.country].called++;
-
-if(r.attendance !== "Absent")
-countryMap[r.country].present++;
-
-});
-
-document.getElementById("countryTable")
+document.getElementById("countryBody")
 .innerHTML =
 
 Object.keys(countryMap)
@@ -1073,11 +1058,10 @@ Object.keys(countryMap)
 
 const d = countryMap[c];
 
-const pending =
-d.total - d.called;
-
-const attend =
-Math.round(d.present/d.total*100);
+const pct =
+Math.round(
+d.called/d.total*100
+);
 
 return `
 
@@ -1087,19 +1071,25 @@ return `
 
 <td>${d.total}</td>
 
-<td>
-<span class="badge green">
-${d.called}
-</span>
-</td>
+<td>${d.present}</td>
+
+<td>${d.absent}</td>
 
 <td>
-<span class="badge red">
-${pending}
-</span>
-</td>
 
-<td>${attend}%</td>
+<span class="chip ${
+pct >= 75
+? "green"
+: pct >= 50
+? "orange"
+: "red"
+}">
+
+${pct}%
+
+</span>
+
+</td>
 
 </tr>
 
@@ -1109,17 +1099,15 @@ ${pending}
 
 /* PENDING */
 
-const pendingRows =
-FILTERED.filter(x=>!x.called);
-
-document.getElementById("pendingTable")
+document.getElementById("pendingBody")
 .innerHTML =
 
-pendingRows.map((r,i)=>`
+filtered
+.filter(r=>!r.called)
+.slice(0,15)
+.map(r=>`
 
 <tr>
-
-<td>${i+1}</td>
 
 <td>${r.student}</td>
 
@@ -1128,7 +1116,7 @@ pendingRows.map((r,i)=>`
 <td>${r.grade}</td>
 
 <td>
-<span class="badge red">
+<span class="chip red">
 Pending
 </span>
 </td>
@@ -1137,64 +1125,100 @@ Pending
 
 `).join("");
 
-/* CHART */
+/* COUNTRY CHART */
 
-if(donutChart)
-donutChart.destroy();
+const labels =
+Object.keys(countryMap);
 
-donutChart = new Chart(
+const values =
+labels.map(c=>countryMap[c].total);
 
-document.getElementById("donutChart"),
+if(countryChart)
+countryChart.destroy();
+
+countryChart = new Chart(
+
+document.getElementById("countryChart"),
 
 {
-
-type:'doughnut',
+type:"bar",
 
 data:{
-
-labels:["Called","Pending"],
-
+labels,
 datasets:[{
-
-data:[called,pending],
-
-backgroundColor:[
-"#00ff99",
-"#ff4d6d"
-],
-
-borderWidth:0
-
+data:values
 }]
-
 },
 
 options:{
-
+responsive:true,
 plugins:{
+legend:{
+display:false
+}
+},
+scales:{
+x:{
+ticks:{
+color:"#9fb3d1"
+},
+grid:{
+color:"rgba(255,255,255,.05)"
+}
+},
+y:{
+ticks:{
+color:"#9fb3d1"
+},
+grid:{
+color:"rgba(255,255,255,.05)"
+}
+}
+}
 
+}
+
+});
+
+/* CALL CHART */
+
+if(callChart)
+callChart.destroy();
+
+callChart = new Chart(
+
+document.getElementById("callChart"),
+
+{
+type:"doughnut",
+
+data:{
+labels:["Called","Pending"],
+datasets:[{
+data:[called,pending]
+}]
+},
+
+options:{
+plugins:{
 legend:{
 labels:{
 color:"#fff"
 }
 }
-
+}
 }
 
-}
-
-}
-
-);
+});
 
 /* GRADE */
 
 const gradeMap = {};
 
-FILTERED.forEach(r=>{
+filtered.forEach(r=>{
 
 if(!gradeMap[r.grade])
-gradeMap[r.grade] = 0;
+gradeMap[r.grade]=0;
 
 gradeMap[r.grade]++;
 
@@ -1208,62 +1232,54 @@ gradeChart = new Chart(
 document.getElementById("gradeChart"),
 
 {
-
-type:'bar',
+type:"line",
 
 data:{
-
 labels:Object.keys(gradeMap),
-
 datasets:[{
-
-label:"Students",
-
 data:Object.values(gradeMap),
-
-backgroundColor:"#00d9ff"
-
+tension:.4
 }]
-
 },
 
 options:{
-
+plugins:{
+legend:{
+display:false
+}
+},
 scales:{
-
 x:{
 ticks:{
-color:"#fff"
+color:"#9fb3d1"
+},
+grid:{
+color:"rgba(255,255,255,.05)"
 }
 },
-
 y:{
 ticks:{
-color:"#fff"
-}
-}
-
+color:"#9fb3d1"
 },
-
-plugins:{
-
-legend:{
-labels:{
-color:"#fff"
+grid:{
+color:"rgba(255,255,255,.05)"
+}
+}
 }
 }
 
-}
+});
+
+/* FOOTER */
+
+document.getElementById("footerStats")
+.textContent =
+
+`${total} Records | ${called} Called | ${pending} Pending`;
 
 }
 
-}
-
-);
-
-}
-
-/* AUTO REFRESH */
+/* AUTO */
 
 setInterval(loadData,60000);
 
