@@ -1,31 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Overseas Online Tracker Dashboard</title>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>Overseas Online Tracker Pro</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
 <style>
 
 :root{
-  --bg:#080d1a;
-  --bg2:#0d1525;
-  --panel:#0f1a2e;
-  --panel2:#162038;
+
+  --bg:#07111f;
+  --bg2:#0c1728;
+
+  --panel:rgba(14,23,39,0.72);
+
   --border:#1f3357;
+
   --accent:#00c6ff;
+
   --green:#00e676;
-  --red:#ff3d5a;
-  --orange:#ffab40;
+  --red:#ff4b6e;
+  --orange:#ffb74d;
   --purple:#b388ff;
-  --text:#e8f0fe;
-  --text2:#9ab0c9;
-  --text3:#5c6f8c;
+
+  --text:#eaf2ff;
+  --text2:#9db1ca;
+  --text3:#62738f;
+
   --font-head:'Rajdhani',sans-serif;
   --font-body:'IBM Plex Sans',sans-serif;
   --font-mono:'IBM Plex Mono',monospace;
+
 }
 
 *{
@@ -35,36 +47,70 @@
 }
 
 body{
+
   background:var(--bg);
   color:var(--text);
   font-family:var(--font-body);
+
   min-height:100vh;
+  overflow-x:hidden;
+
+}
+
+body::before{
+
+  content:'';
+
+  position:fixed;
+  inset:0;
+
+  background:
+  radial-gradient(circle at 20% 20%,rgba(0,198,255,0.12),transparent 25%),
+  radial-gradient(circle at 80% 30%,rgba(179,136,255,0.12),transparent 25%),
+  radial-gradient(circle at 50% 80%,rgba(0,230,118,0.08),transparent 25%);
+
+  z-index:-1;
+
 }
 
 /* TOPBAR */
 
 .topbar{
-  height:70px;
-  background:linear-gradient(90deg,#060c18,var(--bg2));
+
+  height:72px;
+
+  background:rgba(7,17,31,0.75);
+
+  backdrop-filter:blur(16px);
+
   border-bottom:1px solid var(--border);
 
   display:flex;
-  align-items:center;
   justify-content:space-between;
+  align-items:center;
 
-  padding:0 30px;
+  padding:0 28px;
+
+  position:sticky;
+  top:0;
+  z-index:100;
+
 }
 
 .logo{
+
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:14px;
+
 }
 
 .logo-icon{
-  width:40px;
-  height:40px;
-  border-radius:10px;
+
+  width:42px;
+  height:42px;
+
+  border-radius:12px;
 
   background:linear-gradient(135deg,#0072ff,#00c6ff);
 
@@ -72,342 +118,452 @@ body{
   align-items:center;
   justify-content:center;
 
-  font-size:18px;
+  font-size:20px;
+
 }
 
 .logo-title{
+
   font-family:var(--font-head);
-  font-size:22px;
+  font-size:24px;
   font-weight:700;
+
   letter-spacing:1px;
+
 }
 
 .logo-sub{
+
   font-size:11px;
   color:var(--text3);
+
   font-family:var(--font-mono);
+
 }
 
 .live{
+
   display:flex;
   align-items:center;
-  gap:8px;
+  gap:10px;
 
   color:var(--green);
-  font-size:12px;
+
   font-family:var(--font-mono);
+  font-size:12px;
+
 }
 
 .live-dot{
-  width:8px;
-  height:8px;
+
+  width:9px;
+  height:9px;
+
   border-radius:50%;
+
   background:var(--green);
+
   animation:pulse 1.5s infinite;
+
 }
 
 @keyframes pulse{
-  0%{transform:scale(1);}
-  50%{transform:scale(1.4);}
-  100%{transform:scale(1);}
+
+  0%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.5);
+  }
+
+  100%{
+    transform:scale(1);
+  }
+
 }
 
 /* FILTERS */
 
 .filters{
-  background:var(--bg2);
-  border-bottom:1px solid var(--border);
 
-  padding:14px 30px;
+  padding:18px 28px;
 
   display:flex;
-  gap:10px;
+  gap:12px;
   flex-wrap:wrap;
+
 }
 
-select{
-  background:var(--panel);
+select,
+input{
+
+  background:rgba(255,255,255,0.03);
+
   border:1px solid var(--border);
+
   color:var(--text);
 
-  padding:8px 12px;
-  border-radius:8px;
+  padding:10px 12px;
 
-  font-size:12px;
+  border-radius:10px;
+
+  outline:none;
+
+}
+
+input{
+  min-width:220px;
 }
 
 button{
-  background:transparent;
-  border:1px solid var(--border);
 
-  color:var(--text2);
+  background:linear-gradient(135deg,#0072ff,#00c6ff);
 
-  padding:8px 14px;
-  border-radius:8px;
+  border:none;
+
+  color:white;
+
+  padding:10px 18px;
+
+  border-radius:10px;
 
   cursor:pointer;
-}
 
-button:hover{
-  border-color:var(--accent);
-  color:var(--accent);
+  font-weight:600;
+
 }
 
 /* MAIN */
 
 .main{
-  padding:24px 30px;
+  padding:0 28px 28px;
 }
 
 /* KPI */
 
 .kpi-row{
+
   display:grid;
   grid-template-columns:repeat(6,1fr);
-  gap:16px;
+
+  gap:18px;
+
   margin-bottom:24px;
+
 }
 
 .kpi{
+
   background:var(--panel);
+
+  backdrop-filter:blur(18px);
+
   border:1px solid var(--border);
-  border-radius:14px;
+
+  border-radius:18px;
 
   padding:20px;
+
+  transition:0.35s;
+
+}
+
+.kpi:hover{
+
+  transform:translateY(-5px);
+
+  border-color:var(--accent);
+
+  box-shadow:0 10px 35px rgba(0,198,255,0.18);
+
+}
+
+.kpi-top{
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+}
+
+.kpi-icon{
+  font-size:24px;
 }
 
 .kpi-value{
-  font-size:34px;
+
+  font-size:38px;
   font-family:var(--font-head);
   font-weight:700;
 
-  margin-top:8px;
+  margin-top:10px;
+
 }
 
 .kpi-label{
-  font-size:11px;
-  color:var(--text3);
+
   margin-top:6px;
+
+  font-size:11px;
+
   text-transform:uppercase;
   letter-spacing:1px;
+
+  color:var(--text3);
+
 }
 
 .kpi-sub{
+
   margin-top:5px;
+
   font-size:11px;
+
   color:var(--text2);
+
   font-family:var(--font-mono);
-}
 
-/* GRID */
-
-.grid2{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
-  margin-bottom:24px;
-}
-
-.grid3{
-  display:grid;
-  grid-template-columns:1.5fr 1fr 1fr;
-  gap:20px;
-  margin-bottom:24px;
 }
 
 /* PANEL */
 
 .panel{
+
   background:var(--panel);
+
+  backdrop-filter:blur(18px);
+
   border:1px solid var(--border);
-  border-radius:14px;
+
+  border-radius:18px;
+
   overflow:hidden;
+
+  transition:0.35s;
+
+}
+
+.panel:hover{
+
+  transform:translateY(-4px);
+
+  border-color:var(--accent);
+
+  box-shadow:0 10px 35px rgba(0,198,255,0.15);
+
 }
 
 .panel-head{
-  padding:14px 18px;
+
+  padding:15px 18px;
+
   border-bottom:1px solid var(--border);
 
-  background:var(--panel2);
+  background:rgba(255,255,255,0.03);
 
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
 }
 
 .panel-title{
-  font-size:14px;
+
   font-family:var(--font-head);
+
+  font-size:15px;
   font-weight:700;
+
   letter-spacing:1px;
+
 }
 
 .panel-body{
   padding:18px;
 }
 
+/* GRID */
+
+.grid2{
+
+  display:grid;
+  grid-template-columns:1fr 1fr;
+
+  gap:20px;
+
+  margin-bottom:24px;
+
+}
+
+.grid3{
+
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+
+  gap:20px;
+
+  margin-bottom:24px;
+
+}
+
 /* TABLE */
 
 table{
+
   width:100%;
   border-collapse:collapse;
+
 }
 
 th{
-  padding:10px;
+
   text-align:left;
 
-  font-size:10px;
+  padding:10px;
+
+  font-size:11px;
+
   color:var(--text3);
 
   border-bottom:1px solid var(--border);
 
   font-family:var(--font-mono);
+
 }
 
 td{
-  padding:11px 10px;
-  border-bottom:1px solid rgba(255,255,255,0.04);
+
+  padding:12px 10px;
+
+  border-bottom:1px solid rgba(255,255,255,0.03);
 
   font-size:12px;
+
   color:var(--text2);
+
 }
 
 tr:hover td{
-  background:rgba(255,255,255,0.02);
+  background:rgba(255,255,255,0.03);
 }
 
-/* CHIPS */
+/* CHIP */
 
 .chip{
-  padding:3px 8px;
+
+  padding:4px 10px;
+
   border-radius:10px;
+
   font-size:10px;
+
   font-family:var(--font-mono);
+
 }
 
 .green{
+
   background:rgba(0,230,118,0.1);
   color:var(--green);
+
 }
 
 .red{
-  background:rgba(255,61,90,0.1);
+
+  background:rgba(255,75,110,0.1);
   color:var(--red);
+
 }
 
 .orange{
-  background:rgba(255,171,64,0.1);
+
+  background:rgba(255,183,77,0.1);
   color:var(--orange);
+
 }
 
-/* BARS */
+/* CHARTS */
 
-.hbar{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
+.chart{
+  height:350px;
 }
 
-.hbar-item{
-  display:flex;
-  align-items:center;
-  gap:10px;
+#worldMap{
+  height:520px;
 }
 
-.hbar-label{
-  width:80px;
-  font-size:12px;
+/* ALERT */
+
+.alert{
+
+  position:fixed;
+
+  top:90px;
+  right:25px;
+
+  background:rgba(255,75,110,0.12);
+
+  border:1px solid rgba(255,75,110,0.3);
+
+  color:#fff;
+
+  padding:14px 16px;
+
+  border-radius:14px;
+
+  backdrop-filter:blur(18px);
+
+  z-index:999;
+
+  animation:slide 0.4s ease;
+
 }
 
-.hbar-track{
-  flex:1;
-  height:18px;
+@keyframes slide{
 
-  background:rgba(255,255,255,0.06);
+  from{
+    transform:translateX(100px);
+    opacity:0;
+  }
 
-  border-radius:5px;
-  overflow:hidden;
+  to{
+    transform:translateX(0);
+    opacity:1;
+  }
+
 }
 
-.hbar-fill{
-  height:100%;
-  background:linear-gradient(90deg,#0072ff,#00c6ff);
-
-  display:flex;
-  align-items:center;
-  justify-content:flex-end;
-
-  padding-right:8px;
-
-  color:white;
-  font-size:10px;
-  font-family:var(--font-mono);
-}
-
-.hbar-pct{
-  width:45px;
-  text-align:right;
-  font-size:11px;
-}
-
-/* DONUT */
-
-.donut-wrap{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:30px;
-}
-
-.legend{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
-.legend-item{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-
-.legend-dot{
-  width:10px;
-  height:10px;
-  border-radius:50%;
-}
+/* FOOTER */
 
 .footer{
-  padding:16px 30px;
+
+  padding:20px 28px;
+
   border-top:1px solid var(--border);
 
-  font-size:11px;
   color:var(--text3);
+
+  font-size:11px;
 
   font-family:var(--font-mono);
 
   display:flex;
   justify-content:space-between;
+
 }
 
 @media(max-width:1100px){
 
   .kpi-row{
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(2,1fr);
   }
 
+  .grid2,
   .grid3{
-    grid-template-columns:1fr;
-  }
-
-  .grid2{
     grid-template-columns:1fr;
   }
 
 }
 
 </style>
+
 </head>
 
 <body>
@@ -421,15 +577,25 @@ tr:hover td{
     <div class="logo-icon">🎓</div>
 
     <div>
-      <div class="logo-title">OVERSEAS ONLINE TRACKER</div>
-      <div class="logo-sub">TEST ANALYTICS & CALLING MONITOR</div>
+
+      <div class="logo-title">
+        OVERSEAS ONLINE TRACKER PRO
+      </div>
+
+      <div class="logo-sub">
+        LIVE TEST ANALYTICS & CALLING MONITOR
+      </div>
+
     </div>
 
   </div>
 
   <div class="live">
+
     <div class="live-dot"></div>
+
     LIVE DATA
+
   </div>
 
 </div>
@@ -439,7 +605,9 @@ tr:hover td{
 <div class="filters">
 
   <select id="fGrade" onchange="applyFilters()">
+
     <option value="">All Grades</option>
+
     <option>6</option>
     <option>7</option>
     <option>8</option>
@@ -447,28 +615,42 @@ tr:hover td{
     <option>10</option>
     <option>11</option>
     <option>12</option>
+
   </select>
 
   <select id="fCountry" onchange="applyFilters()">
+
     <option value="">All Countries</option>
+
     <option>UAE</option>
-    <option>Qatar</option>
-    <option>Kuwait</option>
-    <option>Bahrain</option>
-    <option>Oman</option>
-    <option>Saudi Arabia</option>
-    <option>USA</option>
-    <option>UK</option>
-    <option>Australia</option>
+    <option>QATAR</option>
+    <option>KUWAIT</option>
+    <option>BAHRAIN</option>
+    <option>OMAN</option>
+    <option>SAUDI ARABIA</option>
+
   </select>
 
   <select id="fCall" onchange="applyFilters()">
-    <option value="">All Call Status</option>
+
+    <option value="">All Calling</option>
+
     <option value="CALLED">Called</option>
+
     <option value="PENDING">Pending</option>
+
   </select>
 
-  <button onclick="resetFilters()">Reset</button>
+  <input
+    type="text"
+    id="search"
+    placeholder="Search student..."
+    onkeyup="applyFilters()"
+  />
+
+  <button onclick="resetFilters()">
+    Reset
+  </button>
 
 </div>
 
@@ -481,171 +663,167 @@ tr:hover td{
   <div class="kpi-row">
 
     <div class="kpi">
-      <div>👥</div>
+
+      <div class="kpi-top">
+
+        <div class="kpi-icon">👥</div>
+
+      </div>
+
       <div class="kpi-value" id="kTotal">0</div>
-      <div class="kpi-label">Total Students</div>
+
+      <div class="kpi-label">
+        Total Students
+      </div>
+
       <div class="kpi-sub" id="kSub1"></div>
+
     </div>
 
     <div class="kpi">
-      <div>📞</div>
-      <div class="kpi-value" style="color:var(--green)" id="kCalled">0%</div>
-      <div class="kpi-label">Calling Done</div>
+
+      <div class="kpi-icon">📞</div>
+
+      <div class="kpi-value"
+      style="color:var(--green)"
+      id="kCalled">0%</div>
+
+      <div class="kpi-label">
+        Calling Done
+      </div>
+
       <div class="kpi-sub" id="kSub2"></div>
+
     </div>
 
     <div class="kpi">
-      <div>✅</div>
-      <div class="kpi-value" style="color:#29b6f6" id="kAttend">0%</div>
-      <div class="kpi-label">Attendance</div>
+
+      <div class="kpi-icon">✅</div>
+
+      <div class="kpi-value"
+      style="color:#29b6f6"
+      id="kAttend">0%</div>
+
+      <div class="kpi-label">
+        Attendance
+      </div>
+
       <div class="kpi-sub" id="kSub3"></div>
+
     </div>
 
     <div class="kpi">
-      <div>🏆</div>
-      <div class="kpi-value" style="color:var(--orange)" id="kAvg">0%</div>
-      <div class="kpi-label">Average Score</div>
+
+      <div class="kpi-icon">🏆</div>
+
+      <div class="kpi-value"
+      style="color:var(--orange)"
+      id="kAvg">0%</div>
+
+      <div class="kpi-label">
+        Average Score
+      </div>
+
       <div class="kpi-sub" id="kSub4"></div>
+
     </div>
 
     <div class="kpi">
-      <div>⏳</div>
-      <div class="kpi-value" style="color:var(--red)" id="kPending">0</div>
-      <div class="kpi-label">Pending Calls</div>
+
+      <div class="kpi-icon">⏳</div>
+
+      <div class="kpi-value"
+      style="color:var(--red)"
+      id="kPending">0</div>
+
+      <div class="kpi-label">
+        Pending Calls
+      </div>
+
       <div class="kpi-sub" id="kSub5"></div>
+
     </div>
 
     <div class="kpi">
-      <div>📋</div>
-      <div class="kpi-value" style="color:var(--purple)" id="kTests">0</div>
-      <div class="kpi-label">Tests</div>
+
+      <div class="kpi-icon">📋</div>
+
+      <div class="kpi-value"
+      style="color:var(--purple)"
+      id="kTests">0</div>
+
+      <div class="kpi-label">
+        Tests
+      </div>
+
       <div class="kpi-sub" id="kSub6"></div>
+
     </div>
 
   </div>
 
-  <!-- ROW -->
+  <!-- WORLD MAP -->
+
+  <div class="panel" style="margin-bottom:24px;">
+
+    <div class="panel-head">
+
+      <div class="panel-title">
+        GLOBAL STUDENT MAP
+      </div>
+
+    </div>
+
+    <div class="panel-body">
+
+      <div id="worldMap"></div>
+
+    </div>
+
+  </div>
+
+  <!-- CHARTS -->
 
   <div class="grid3">
 
-    <!-- GRADE -->
-
     <div class="panel">
 
       <div class="panel-head">
-        <div class="panel-title">GRADE ANALYTICS</div>
+        <div class="panel-title">
+          GRADE ANALYTICS
+        </div>
       </div>
 
       <div class="panel-body">
-        <div class="hbar" id="gradeChart"></div>
+        <div id="gradeChart" class="chart"></div>
       </div>
 
     </div>
 
-    <!-- CALLING DONUT -->
-
     <div class="panel">
 
       <div class="panel-head">
-        <div class="panel-title">CALLING STATUS</div>
+        <div class="panel-title">
+          COUNTRY DISTRIBUTION
+        </div>
       </div>
 
       <div class="panel-body">
-
-        <div class="donut-wrap">
-
-          <svg width="130" height="130" viewBox="0 0 120 120">
-
-            <circle cx="60" cy="60" r="44"
-              fill="none"
-              stroke="rgba(255,255,255,0.08)"
-              stroke-width="16"/>
-
-            <circle
-              id="callCircle"
-              cx="60"
-              cy="60"
-              r="44"
-              fill="none"
-              stroke="var(--green)"
-              stroke-width="16"
-              stroke-dasharray="0 276"
-              stroke-linecap="round"
-              transform="rotate(-90 60 60)"
-            />
-
-            <text x="60" y="58"
-              text-anchor="middle"
-              fill="white"
-              font-size="18"
-              font-family="Rajdhani"
-              id="callPct">0%</text>
-
-          </svg>
-
-          <div class="legend">
-
-            <div class="legend-item">
-              <div class="legend-dot" style="background:var(--green)"></div>
-              <div id="calledCount">0 Called</div>
-            </div>
-
-            <div class="legend-item">
-              <div class="legend-dot" style="background:var(--red)"></div>
-              <div id="pendingCount">0 Pending</div>
-            </div>
-
-          </div>
-
-        </div>
-
+        <div id="countryChart" class="chart"></div>
       </div>
 
     </div>
 
-    <!-- ATTENDANCE -->
-
     <div class="panel">
 
       <div class="panel-head">
-        <div class="panel-title">ATTENDANCE</div>
+        <div class="panel-title">
+          CALLING STATUS
+        </div>
       </div>
 
       <div class="panel-body">
-
-        <div class="donut-wrap">
-
-          <svg width="130" height="130" viewBox="0 0 120 120">
-
-            <circle cx="60" cy="60" r="44"
-              fill="none"
-              stroke="rgba(255,255,255,0.08)"
-              stroke-width="16"/>
-
-            <circle
-              id="attCircle"
-              cx="60"
-              cy="60"
-              r="44"
-              fill="none"
-              stroke="#29b6f6"
-              stroke-width="16"
-              stroke-dasharray="0 276"
-              stroke-linecap="round"
-              transform="rotate(-90 60 60)"
-            />
-
-            <text x="60" y="58"
-              text-anchor="middle"
-              fill="white"
-              font-size="18"
-              font-family="Rajdhani"
-              id="attPct">0%</text>
-
-          </svg>
-
-        </div>
-
+        <div id="callingChart" class="chart"></div>
       </div>
 
     </div>
@@ -656,12 +834,12 @@ tr:hover td{
 
   <div class="grid2">
 
-    <!-- COUNTRY -->
-
     <div class="panel">
 
       <div class="panel-head">
-        <div class="panel-title">COUNTRY ANALYTICS</div>
+        <div class="panel-title">
+          COUNTRY ANALYTICS
+        </div>
       </div>
 
       <div class="panel-body">
@@ -669,13 +847,17 @@ tr:hover td{
         <table>
 
           <thead>
+
             <tr>
+
               <th>Country</th>
               <th>Total</th>
               <th>Present</th>
               <th>Absent</th>
               <th>Calling</th>
+
             </tr>
+
           </thead>
 
           <tbody id="countryBody"></tbody>
@@ -686,12 +868,12 @@ tr:hover td{
 
     </div>
 
-    <!-- TEST -->
-
     <div class="panel">
 
       <div class="panel-head">
-        <div class="panel-title">TEST ANALYTICS</div>
+        <div class="panel-title">
+          PENDING CALLS
+        </div>
       </div>
 
       <div class="panel-body">
@@ -699,16 +881,18 @@ tr:hover td{
         <table>
 
           <thead>
+
             <tr>
-              <th>Test</th>
-              <th>Total</th>
-              <th>Present</th>
-              <th>Absent</th>
-              <th>Avg</th>
+
+              <th>Name</th>
+              <th>Grade</th>
+              <th>Country</th>
+
             </tr>
+
           </thead>
 
-          <tbody id="testBody"></tbody>
+          <tbody id="pendingBody"></tbody>
 
         </table>
 
@@ -718,48 +902,12 @@ tr:hover td{
 
   </div>
 
-  <!-- PENDING -->
-
-  <div class="panel">
-
-    <div class="panel-head">
-      <div class="panel-title">PENDING CALLS</div>
-    </div>
-
-    <div class="panel-body">
-
-      <table>
-
-        <thead>
-
-          <tr>
-            <th>#</th>
-            <th>Form No</th>
-            <th>Name</th>
-            <th>Grade</th>
-            <th>Country</th>
-            <th>Test</th>
-            <th>Status</th>
-          </tr>
-
-        </thead>
-
-        <tbody id="pendingBody"></tbody>
-
-      </table>
-
-    </div>
-
-  </div>
-
 </div>
-
-<!-- FOOTER -->
 
 <div class="footer">
 
   <div>
-    Overseas Online Tracker v1.0
+    Overseas Online Tracker Pro v2.0
   </div>
 
   <div id="footerStats"></div>
@@ -768,65 +916,68 @@ tr:hover td{
 
 <script>
 
-/* GOOGLE SHEET WEB APP URL */
+/* =========================
+   GOOGLE WEB APP URL
+========================= */
 
 const SHEET_API =
 "https://script.google.com/macros/s/AKfycbwGD8hn_Bpo_qnZOQ5My9_u_R6sb8utNiRvq4ALxkwfwSn6m7W6w8NCkFgtFIbxBYrE/exec";
 
+/* ========================= */
+
 let DATA = [];
 let filtered = [];
 
-/* FLAGS */
-
 const FLAGS = {
+
   UAE:"🇦🇪",
-  Qatar:"🇶🇦",
-  Kuwait:"🇰🇼",
-  Bahrain:"🇧🇭",
-  Oman:"🇴🇲",
-  "Saudi Arabia":"🇸🇦",
-  USA:"🇺🇸",
-  UK:"🇬🇧",
-  Australia:"🇦🇺"
+  QATAR:"🇶🇦",
+  KUWAIT:"🇰🇼",
+  BAHRAIN:"🇧🇭",
+  OMAN:"🇴🇲",
+  "SAUDI ARABIA":"🇸🇦"
+
 };
 
-/* LOAD DATA */
+/* =========================
+   LOAD DATA
+========================= */
 
 async function loadData(){
 
   try{
 
-    const response = await fetch(SHEET_API);
+    const response =
+      await fetch(SHEET_API);
 
-    let rawData = await response.json();
+    const raw =
+      await response.json();
 
-    /* REMOVE HEADER ROW */
+    DATA =
+      raw.slice(1).map(r=>({
 
-    DATA = rawData.slice(1);
+        test:r[0] || "",
 
-    /* FORMAT DATA */
+        grade:r[1] || "",
 
-    DATA = DATA.map(r=>{
+        formNo:r[2] || "",
 
-      return {
+        student:r[3] || "",
 
-        test: r[0] || "",
-        grade: r[1] || "",
-        formNo: r[2] || "",
-        student: r[3] || "",
-        country: r[4] || "",
-        score: Number(r[5] || 0),
-        attendance: r[6] || "Absent",
+        country:
+          (r[4] || "").toUpperCase(),
+
+        score:Number(r[5] || 0),
+
+        attendance:r[6] || "Absent",
 
         called:
           r[7] === true ||
           r[7] === "TRUE" ||
-          r[7] === "Yes" ||
-          r[7] === "YES"
+          r[7] === "YES" ||
+          r[7] === "Yes"
 
-      };
-
-    });
+      }));
 
     filtered = [...DATA];
 
@@ -834,37 +985,51 @@ async function loadData(){
 
   }catch(err){
 
-    console.log("ERROR:",err);
+    console.log(err);
 
   }
 
 }
 
-/* FILTERS */
+/* =========================
+   FILTERS
+========================= */
 
 function applyFilters(){
 
-  const g =
+  const grade =
     document.getElementById("fGrade").value;
 
-  const c =
+  const country =
     document.getElementById("fCountry").value;
 
-  const s =
+  const call =
     document.getElementById("fCall").value;
+
+  const search =
+    document.getElementById("search")
+    .value
+    .toLowerCase();
 
   filtered = DATA.filter(r=>{
 
-    if(g && r.grade != g)
+    if(grade && r.grade != grade)
       return false;
 
-    if(c && r.country != c)
+    if(country && r.country != country)
       return false;
 
-    if(s === "CALLED" && !r.called)
+    if(call === "CALLED" && !r.called)
       return false;
 
-    if(s === "PENDING" && r.called)
+    if(call === "PENDING" && r.called)
+      return false;
+
+    if(
+      search &&
+      !r.student.toLowerCase()
+      .includes(search)
+    )
       return false;
 
     return true;
@@ -880,6 +1045,7 @@ function resetFilters(){
   document.getElementById("fGrade").value = "";
   document.getElementById("fCountry").value = "";
   document.getElementById("fCall").value = "";
+  document.getElementById("search").value = "";
 
   filtered = [...DATA];
 
@@ -887,11 +1053,14 @@ function resetFilters(){
 
 }
 
-/* RENDER */
+/* =========================
+   RENDER
+========================= */
 
 function render(){
 
-  const total = filtered.length;
+  const total =
+    filtered.length;
 
   const called =
     filtered.filter(r=>r.called).length;
@@ -922,9 +1091,9 @@ function render(){
   const avg =
     scores.length
     ? (
-        scores.reduce((a,b)=>a+b,0)
-        / scores.length
-      ).toFixed(1)
+      scores.reduce((a,b)=>a+b,0)
+      / scores.length
+    ).toFixed(1)
     : 0;
 
   const tests =
@@ -932,188 +1101,141 @@ function render(){
 
   /* KPI */
 
-  document.getElementById("kTotal").textContent =
-    total;
+  animateValue(
+    "kTotal",
+    total
+  );
 
-  document.getElementById("kCalled").textContent =
+  document.getElementById("kCalled")
+  .textContent =
     callPct + "%";
 
-  document.getElementById("kAttend").textContent =
+  document.getElementById("kAttend")
+  .textContent =
     attPct + "%";
 
-  document.getElementById("kAvg").textContent =
+  document.getElementById("kAvg")
+  .textContent =
     avg + "%";
 
-  document.getElementById("kPending").textContent =
-    pending;
+  animateValue(
+    "kPending",
+    pending
+  );
 
-  document.getElementById("kTests").textContent =
-    tests.length;
+  animateValue(
+    "kTests",
+    tests.length
+  );
 
-  document.getElementById("kSub1").textContent =
+  document.getElementById("kSub1")
+  .textContent =
     called + " called";
 
-  document.getElementById("kSub2").textContent =
+  document.getElementById("kSub2")
+  .textContent =
     pending + " pending";
 
-  document.getElementById("kSub3").textContent =
+  document.getElementById("kSub3")
+  .textContent =
     present + " present";
 
-  document.getElementById("kSub4").textContent =
+  document.getElementById("kSub4")
+  .textContent =
     "Based on " + scores.length;
 
-  document.getElementById("kSub5").textContent =
+  document.getElementById("kSub5")
+  .textContent =
     "Need action";
 
-  document.getElementById("kSub6").textContent =
-    tests.join(", ");
+  document.getElementById("kSub6")
+  .textContent =
+    tests.length + " active";
 
-  /* DONUT */
+  /* TABLE */
 
-  const circ = 276;
+  renderCountryTable();
 
-  document.getElementById("callCircle")
-  .setAttribute(
-    "stroke-dasharray",
-    `${circ * callPct / 100} ${circ}`
+  renderPending();
+
+  /* CHARTS */
+
+  renderGradeChart();
+
+  renderCountryChart();
+
+  renderCallingChart(
+    called,
+    pending
   );
 
-  document.getElementById("callPct")
+  renderMap();
+
+  /* FOOTER */
+
+  document.getElementById("footerStats")
   .textContent =
-    callPct + "%";
+    `${total} Records | ${called} Called | ${pending} Pending`;
 
-  document.getElementById("calledCount")
-  .textContent =
-    called + " Called";
+  /* ALERT */
 
-  document.getElementById("pendingCount")
-  .textContent =
-    pending + " Pending";
+  if(pending > 30){
 
-  document.getElementById("attCircle")
-  .setAttribute(
-    "stroke-dasharray",
-    `${circ * attPct / 100} ${circ}`
-  );
-
-  document.getElementById("attPct")
-  .textContent =
-    attPct + "%";
-
-  /* GRADE */
-
-  const gradeMap = {};
-
-  filtered.forEach(r=>{
-
-    const g = r.grade;
-
-    if(!gradeMap[g]){
-
-      gradeMap[g] = {
-        total:0,
-        called:0
-      };
-
-    }
-
-    gradeMap[g].total++;
-
-    if(r.called)
-      gradeMap[g].called++;
-
-  });
-
-  const max =
-    Math.max(
-      ...Object.values(gradeMap).map(d=>d.total),
-      1
+    showAlert(
+      "⚠ High Pending Calls"
     );
 
-  document.getElementById("gradeChart").innerHTML =
-    Object.keys(gradeMap)
-    .sort((a,b)=>a-b)
-    .map(g=>{
+  }
 
-      const d = gradeMap[g];
+}
 
-      const pct =
-        Math.round(
-          d.called/d.total*100
-        );
+/* =========================
+   COUNTRY TABLE
+========================= */
 
-      const width =
-        d.total/max*100;
+function renderCountryTable(){
 
-      return `
-
-      <div class="hbar-item">
-
-        <div class="hbar-label">
-          Grade ${g}
-        </div>
-
-        <div class="hbar-track">
-
-          <div class="hbar-fill"
-            style="width:${width}%">
-
-            ${d.total}
-
-          </div>
-
-        </div>
-
-        <div class="hbar-pct">
-          ${pct}%
-        </div>
-
-      </div>
-
-      `;
-
-    }).join("");
-
-  /* COUNTRY */
-
-  const countryMap = {};
+  const map = {};
 
   filtered.forEach(r=>{
 
-    const c = r.country || "Other";
+    if(!map[r.country]){
 
-    if(!countryMap[c]){
+      map[r.country] = {
 
-      countryMap[c] = {
         total:0,
         present:0,
         absent:0,
         called:0
+
       };
 
     }
 
-    countryMap[c].total++;
+    map[r.country].total++;
 
     if(r.attendance === "Present")
-      countryMap[c].present++;
+      map[r.country].present++;
     else
-      countryMap[c].absent++;
+      map[r.country].absent++;
 
     if(r.called)
-      countryMap[c].called++;
+      map[r.country].called++;
 
   });
 
-  document.getElementById("countryBody").innerHTML =
-    Object.keys(countryMap)
+  document.getElementById("countryBody")
+  .innerHTML =
+
+    Object.keys(map)
     .map(c=>{
 
-      const d = countryMap[c];
+      const d = map[c];
 
       const pct =
         Math.round(
-          d.called/d.total*100
+          d.called /
+          d.total * 100
         );
 
       return `
@@ -1152,123 +1274,380 @@ function render(){
 
     }).join("");
 
-  /* TEST */
+}
 
-  const testMap = {};
+/* =========================
+   PENDING
+========================= */
 
-  filtered.forEach(r=>{
-
-    const t = r.test;
-
-    if(!testMap[t]){
-
-      testMap[t] = {
-        total:0,
-        present:0,
-        absent:0,
-        scores:[]
-      };
-
-    }
-
-    testMap[t].total++;
-
-    if(r.attendance === "Present"){
-
-      testMap[t].present++;
-
-      testMap[t].scores.push(r.score);
-
-    }else{
-
-      testMap[t].absent++;
-
-    }
-
-  });
-
-  document.getElementById("testBody").innerHTML =
-    Object.keys(testMap)
-    .map(t=>{
-
-      const d = testMap[t];
-
-      const avg =
-        d.scores.length
-        ? (
-            d.scores.reduce((a,b)=>a+b,0)
-            / d.scores.length
-          ).toFixed(1)
-        : 0;
-
-      return `
-
-      <tr>
-
-        <td>${t}</td>
-
-        <td>${d.total}</td>
-
-        <td>${d.present}</td>
-
-        <td>${d.absent}</td>
-
-        <td>${avg}%</td>
-
-      </tr>
-
-      `;
-
-    }).join("");
-
-  /* PENDING */
+function renderPending(){
 
   const pendingRows =
     filtered.filter(r=>!r.called);
 
-  document.getElementById("pendingBody").innerHTML =
-    pendingRows.map((r,i)=>`
+  document.getElementById("pendingBody")
+  .innerHTML =
+
+    pendingRows
+    .slice(0,15)
+    .map(r=>`
 
       <tr>
 
-        <td>${i+1}</td>
-
-        <td>${r.formNo}</td>
-
         <td>${r.student}</td>
 
-        <td>Grade ${r.grade}</td>
+        <td>${r.grade}</td>
 
         <td>
           ${FLAGS[r.country] || "🌍"}
           ${r.country}
         </td>
 
-        <td>${r.test}</td>
-
-        <td>
-          <span class="chip red">
-            Pending
-          </span>
-        </td>
-
       </tr>
 
     `).join("");
 
-  /* FOOTER */
+}
 
-  document.getElementById("footerStats")
-  .textContent =
-    `${total} Records | ${called} Called | ${pending} Pending`;
+/* =========================
+   GRADE CHART
+========================= */
+
+function renderGradeChart(){
+
+  const grades = {};
+
+  filtered.forEach(r=>{
+
+    if(!grades[r.grade])
+      grades[r.grade] = 0;
+
+    grades[r.grade]++;
+
+  });
+
+  const options = {
+
+    chart:{
+      type:'bar',
+      height:320,
+      toolbar:{show:false},
+      background:'transparent'
+    },
+
+    series:[{
+
+      name:'Students',
+
+      data:Object.values(grades)
+
+    }],
+
+    xaxis:{
+      categories:
+      Object.keys(grades),
+
+      labels:{
+        style:{
+          colors:'#9db1ca'
+        }
+      }
+    },
+
+    yaxis:{
+      labels:{
+        style:{
+          colors:'#9db1ca'
+        }
+      }
+    },
+
+    theme:{
+      mode:'dark'
+    }
+
+  };
+
+  document.getElementById("gradeChart")
+  .innerHTML = "";
+
+  new ApexCharts(
+    document.querySelector("#gradeChart"),
+    options
+  ).render();
 
 }
 
-/* AUTO REFRESH */
+/* =========================
+   COUNTRY PIE
+========================= */
 
-setInterval(loadData,60000);
+function renderCountryChart(){
 
-/* INIT */
+  const map = {};
+
+  filtered.forEach(r=>{
+
+    if(!map[r.country])
+      map[r.country] = 0;
+
+    map[r.country]++;
+
+  });
+
+  const options = {
+
+    chart:{
+      type:'donut',
+      height:320
+    },
+
+    labels:Object.keys(map),
+
+    series:Object.values(map),
+
+    theme:{
+      mode:'dark'
+    },
+
+    legend:{
+      labels:{
+        colors:'#fff'
+      }
+    }
+
+  };
+
+  document.getElementById("countryChart")
+  .innerHTML = "";
+
+  new ApexCharts(
+    document.querySelector("#countryChart"),
+    options
+  ).render();
+
+}
+
+/* =========================
+   CALLING
+========================= */
+
+function renderCallingChart(
+  called,
+  pending
+){
+
+  const options = {
+
+    chart:{
+      type:'radialBar',
+      height:320
+    },
+
+    series:[
+      Math.round(
+        called /
+        (called+pending)
+        *100
+      )
+    ],
+
+    labels:['Calling'],
+
+    theme:{
+      mode:'dark'
+    }
+
+  };
+
+  document.getElementById("callingChart")
+  .innerHTML = "";
+
+  new ApexCharts(
+    document.querySelector("#callingChart"),
+    options
+  ).render();
+
+}
+
+/* =========================
+   MAP
+========================= */
+
+async function renderMap(){
+
+  const chartDom =
+    document.getElementById("worldMap");
+
+  const myChart =
+    echarts.init(chartDom);
+
+  const countryStats = {};
+
+  filtered.forEach(r=>{
+
+    if(!countryStats[r.country]){
+
+      countryStats[r.country] = 0;
+
+    }
+
+    countryStats[r.country]++;
+
+  });
+
+  const mapData =
+    Object.keys(countryStats)
+    .map(c=>({
+
+      name:c,
+
+      value:countryStats[c]
+
+    }));
+
+  const world =
+    await fetch(
+      'https://fastly.jsdelivr.net/npm/echarts@5/map/json/world.json'
+    )
+    .then(r=>r.json());
+
+  echarts.registerMap(
+    'world',
+    world
+  );
+
+  myChart.setOption({
+
+    backgroundColor:'transparent',
+
+    tooltip:{
+      trigger:'item'
+    },
+
+    visualMap:{
+
+      min:0,
+      max:100,
+
+      text:['HIGH','LOW'],
+
+      realtime:false,
+
+      calculable:true,
+
+      inRange:{
+        color:[
+          '#0d1f38',
+          '#0072ff',
+          '#00c6ff'
+        ]
+      },
+
+      textStyle:{
+        color:'#fff'
+      }
+
+    },
+
+    series:[{
+
+      type:'map',
+
+      map:'world',
+
+      roam:true,
+
+      emphasis:{
+        label:{
+          show:true,
+          color:'#fff'
+        }
+      },
+
+      itemStyle:{
+        borderColor:'#20375c',
+        areaColor:'#13223b'
+      },
+
+      data:mapData
+
+    }]
+
+  });
+
+}
+
+/* =========================
+   ALERT
+========================= */
+
+function showAlert(text){
+
+  const existing =
+    document.querySelector(".alert");
+
+  if(existing)
+    existing.remove();
+
+  const div =
+    document.createElement("div");
+
+  div.className = "alert";
+
+  div.innerHTML = text;
+
+  document.body.appendChild(div);
+
+  setTimeout(()=>{
+
+    div.remove();
+
+  },4000);
+
+}
+
+/* =========================
+   ANIMATE
+========================= */
+
+function animateValue(id,end){
+
+  const obj =
+    document.getElementById(id);
+
+  let start = 0;
+
+  const duration = 600;
+
+  const step =
+    Math.ceil(end/30);
+
+  const timer =
+    setInterval(()=>{
+
+      start += step;
+
+      if(start >= end){
+
+        start = end;
+
+        clearInterval(timer);
+
+      }
+
+      obj.textContent = start;
+
+    },duration/30);
+
+}
+
+/* ========================= */
+
+setInterval(
+  loadData,
+  60000
+);
 
 loadData();
 
