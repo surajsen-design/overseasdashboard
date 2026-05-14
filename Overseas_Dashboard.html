@@ -1,41 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Overseas Online Tracker X</title>
+<title>Overseas Tracker Ultra</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<link
-rel="stylesheet"
-href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"
-/>
 
 <style>
 
 :root{
---bg:#07101f;
+
+--bg:#07101d;
 --bg2:#0d1728;
---panel:#101b30;
---panel2:#162540;
---border:#203457;
---text:#eaf2ff;
---text2:#9fb3d1;
---text3:#5d7191;
---accent:#00c6ff;
+
+--panel:#101c31;
+--panel2:#152540;
+
+--border:#223659;
+
+--text:#edf3ff;
+--text2:#a5b8d5;
+--text3:#667a98;
+
 --green:#00e676;
 --red:#ff4569;
+--blue:#00c6ff;
 --orange:#ffb74d;
 --purple:#b388ff;
---cyan:#26c6da;
---yellow:#ffee58;
+
 }
 
 *{
@@ -45,60 +43,54 @@ box-sizing:border-box;
 }
 
 body{
-background:linear-gradient(180deg,#050b16,#091221);
-color:var(--text);
+
+background:
+linear-gradient(180deg,#050b16,#091221);
+
 font-family:'IBM Plex Sans',sans-serif;
-min-height:100vh;
+
+color:var(--text);
+
 overflow-x:hidden;
-}
 
-/* SCROLL */
-
-::-webkit-scrollbar{
-width:8px;
-height:8px;
-}
-
-::-webkit-scrollbar-thumb{
-background:#203457;
-border-radius:10px;
 }
 
 /* TOPBAR */
 
 .topbar{
 
-height:74px;
+height:72px;
 
 background:
-linear-gradient(90deg,#07101f,#0f1f38);
+linear-gradient(90deg,#07101d,#10203a);
 
 border-bottom:1px solid var(--border);
 
 padding:0 24px;
 
 display:flex;
-align-items:center;
 justify-content:space-between;
+align-items:center;
 
 position:sticky;
 top:0;
 z-index:999;
 
-backdrop-filter:blur(10px);
-
 }
 
 .brand{
+
 display:flex;
 align-items:center;
 gap:14px;
+
 }
 
 .logo{
 
 width:48px;
 height:48px;
+
 border-radius:14px;
 
 background:
@@ -111,37 +103,54 @@ justify-content:center;
 font-size:22px;
 
 box-shadow:
-0 0 25px rgba(0,198,255,.4);
+0 0 30px rgba(0,198,255,.4);
 
 }
 
 .brand h1{
+
 font-family:'Rajdhani',sans-serif;
+
 font-size:24px;
+font-weight:700;
+
 letter-spacing:1px;
+
 }
 
 .brand p{
+
 font-size:11px;
+
 color:var(--text3);
-font-family:'IBM Plex Mono',monospace;
+
+letter-spacing:1px;
+
 }
 
 .live{
+
 display:flex;
 align-items:center;
 gap:8px;
+
 font-size:12px;
-font-family:'IBM Plex Mono',monospace;
+
 color:var(--green);
+
 }
 
 .dot{
+
 width:8px;
 height:8px;
+
 border-radius:50%;
+
 background:var(--green);
-animation:pulse 1.5s infinite;
+
+animation:pulse 1.4s infinite;
+
 }
 
 @keyframes pulse{
@@ -167,7 +176,7 @@ background:#0b1526;
 border-bottom:1px solid var(--border);
 
 position:sticky;
-top:74px;
+top:72px;
 z-index:998;
 
 }
@@ -189,14 +198,17 @@ font-size:12px;
 }
 
 button{
+
 cursor:pointer;
 transition:.25s;
+
 }
 
 button:hover{
-border-color:var(--accent);
-color:var(--accent);
-transform:translateY(-1px);
+
+border-color:var(--blue);
+color:var(--blue);
+
 }
 
 /* MAIN */
@@ -213,13 +225,15 @@ display:grid;
 grid-template-columns:repeat(6,1fr);
 
 gap:16px;
+
 margin-bottom:24px;
 
 }
 
 .kpi{
 
-background:linear-gradient(180deg,#101b30,#0c1526);
+background:
+linear-gradient(180deg,#101c31,#0b1424);
 
 border:1px solid var(--border);
 
@@ -232,11 +246,12 @@ overflow:hidden;
 
 }
 
-.kpi:before{
+.kpi::before{
 
 content:"";
 
 position:absolute;
+
 right:-20px;
 top:-20px;
 
@@ -249,14 +264,6 @@ border-radius:50%;
 
 }
 
-.kpi-top{
-
-display:flex;
-justify-content:space-between;
-align-items:center;
-
-}
-
 .kpi-icon{
 font-size:22px;
 }
@@ -264,9 +271,10 @@ font-size:22px;
 .kpi-value{
 
 font-size:38px;
-font-weight:700;
 
 font-family:'Rajdhani',sans-serif;
+
+font-weight:700;
 
 margin-top:8px;
 
@@ -277,6 +285,7 @@ margin-top:8px;
 font-size:11px;
 
 letter-spacing:1px;
+
 text-transform:uppercase;
 
 color:var(--text3);
@@ -291,8 +300,6 @@ margin-top:6px;
 
 font-size:11px;
 
-font-family:'IBM Plex Mono',monospace;
-
 color:var(--text2);
 
 }
@@ -300,33 +307,39 @@ color:var(--text2);
 /* GRID */
 
 .grid2{
+
 display:grid;
-grid-template-columns:1.2fr .8fr;
+grid-template-columns:1fr 1fr;
+
 gap:20px;
+
 margin-bottom:24px;
+
 }
 
 .grid3{
+
 display:grid;
 grid-template-columns:1fr 1fr 1fr;
+
 gap:20px;
+
 margin-bottom:24px;
+
 }
 
 /* PANEL */
 
 .panel{
 
-background:linear-gradient(180deg,#101b30,#0d1728);
+background:
+linear-gradient(180deg,#101c31,#0d1728);
 
 border:1px solid var(--border);
 
 border-radius:18px;
 
 overflow:hidden;
-
-box-shadow:
-0 8px 25px rgba(0,0,0,.2);
 
 }
 
@@ -336,10 +349,6 @@ padding:14px 18px;
 
 border-bottom:1px solid var(--border);
 
-display:flex;
-justify-content:space-between;
-align-items:center;
-
 background:rgba(255,255,255,.02);
 
 }
@@ -347,8 +356,10 @@ background:rgba(255,255,255,.02);
 .panel-title{
 
 font-size:14px;
-font-weight:700;
+
 font-family:'Rajdhani',sans-serif;
+
+font-weight:700;
 
 letter-spacing:1px;
 
@@ -356,6 +367,162 @@ letter-spacing:1px;
 
 .panel-body{
 padding:18px;
+}
+
+/* MAP CARD */
+
+.map-card{
+
+height:420px;
+
+border-radius:16px;
+
+position:relative;
+
+overflow:hidden;
+
+background:
+radial-gradient(circle at top,#153760,#091321);
+
+border:1px solid rgba(255,255,255,.05);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+}
+
+/* COUNTRY GRAPHIC */
+
+.country-box{
+
+position:relative;
+
+width:85%;
+height:80%;
+
+border-radius:24px;
+
+background:
+linear-gradient(135deg,#1a3964,#10203a);
+
+border:1px solid rgba(255,255,255,.08);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+overflow:hidden;
+
+box-shadow:
+0 0 40px rgba(0,0,0,.3);
+
+}
+
+.country-name{
+
+position:absolute;
+
+top:20px;
+left:20px;
+
+font-size:28px;
+
+font-family:'Rajdhani',sans-serif;
+
+font-weight:700;
+
+letter-spacing:2px;
+
+}
+
+.country-stats{
+
+position:absolute;
+
+bottom:20px;
+left:20px;
+
+display:flex;
+gap:12px;
+flex-wrap:wrap;
+
+}
+
+.stat-chip{
+
+padding:10px 14px;
+
+border-radius:14px;
+
+font-size:12px;
+
+font-weight:600;
+
+}
+
+.present{
+background:rgba(0,230,118,.12);
+color:var(--green);
+}
+
+.absent{
+background:rgba(255,69,105,.12);
+color:var(--red);
+}
+
+.called{
+background:rgba(0,198,255,.12);
+color:var(--blue);
+}
+
+.pending{
+background:rgba(255,183,77,.12);
+color:var(--orange);
+}
+
+/* GLOW DOTS */
+
+.glow{
+
+position:absolute;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.15);
+
+filter:blur(4px);
+
+animation:float 5s infinite alternate;
+
+}
+
+.g1{
+width:100px;
+height:100px;
+top:30px;
+right:40px;
+}
+
+.g2{
+width:60px;
+height:60px;
+bottom:80px;
+right:100px;
+}
+
+.g3{
+width:140px;
+height:140px;
+bottom:-40px;
+left:-40px;
+}
+
+@keyframes float{
+
+0%{transform:translateY(0)}
+100%{transform:translateY(-20px)}
+
 }
 
 /* TABLE */
@@ -369,15 +536,13 @@ th{
 
 padding:12px;
 
-text-align:left;
-
 font-size:10px;
+
+text-align:left;
 
 letter-spacing:1px;
 
 color:var(--text3);
-
-font-family:'IBM Plex Mono',monospace;
 
 border-bottom:1px solid var(--border);
 
@@ -399,24 +564,17 @@ tr:hover td{
 background:rgba(255,255,255,.02);
 }
 
-/* MAP */
-
-#worldMap{
-height:500px;
-border-radius:14px;
-overflow:hidden;
-}
-
 /* CHIPS */
 
 .chip{
 
 padding:4px 10px;
+
 border-radius:20px;
 
 font-size:10px;
 
-font-family:'IBM Plex Mono',monospace;
+font-weight:600;
 
 }
 
@@ -428,17 +586,6 @@ color:var(--green);
 .red{
 background:rgba(255,69,105,.12);
 color:var(--red);
-}
-
-.orange{
-background:rgba(255,183,77,.12);
-color:var(--orange);
-}
-
-/* CHART BOX */
-
-.chartBox{
-height:320px;
 }
 
 /* FOOTER */
@@ -455,8 +602,6 @@ justify-content:space-between;
 font-size:11px;
 
 color:var(--text3);
-
-font-family:'IBM Plex Mono',monospace;
 
 }
 
@@ -487,11 +632,12 @@ grid-template-columns:1fr;
 }
 
 </style>
+
 </head>
 
 <body>
 
-<!-- TOP -->
+<!-- TOPBAR -->
 
 <div class="topbar">
 
@@ -500,15 +646,15 @@ grid-template-columns:1fr;
 <div class="logo">🌍</div>
 
 <div>
-<h1>OVERSEAS ONLINE TRACKER X</h1>
-<p>GLOBAL CALLING + TEST ANALYTICS SYSTEM</p>
+<h1>OVERSEAS TRACKER ULTRA</h1>
+<p>GLOBAL PERFORMANCE + CALLING ANALYTICS</p>
 </div>
 
 </div>
 
 <div class="live">
 <div class="dot"></div>
-LIVE SYNC
+LIVE DASHBOARD
 </div>
 
 </div>
@@ -517,8 +663,23 @@ LIVE SYNC
 
 <div class="filters">
 
+<select id="fCountry" onchange="applyFilters()">
+
+<option value="">ALL COUNTRIES</option>
+
+<option>UAE</option>
+<option>QATAR</option>
+<option>KUWAIT</option>
+<option>BAHRAIN</option>
+<option>OMAN</option>
+<option>SAUDI ARABIA</option>
+
+</select>
+
 <select id="fGrade" onchange="applyFilters()">
-<option value="">All Grades</option>
+
+<option value="">ALL GRADES</option>
+
 <option>6</option>
 <option>7</option>
 <option>8</option>
@@ -526,25 +687,12 @@ LIVE SYNC
 <option>10</option>
 <option>11</option>
 <option>12</option>
+
 </select>
 
-<select id="fCountry" onchange="applyFilters()">
-<option value="">All Countries</option>
-<option>UAE</option>
-<option>QATAR</option>
-<option>KUWAIT</option>
-<option>BAHRAIN</option>
-<option>OMAN</option>
-<option>SAUDI ARABIA</option>
-</select>
-
-<select id="fCall" onchange="applyFilters()">
-<option value="">All Calling</option>
-<option value="CALLED">Called</option>
-<option value="PENDING">Pending</option>
-</select>
-
-<button onclick="resetFilters()">Reset</button>
+<button onclick="resetFilters()">
+Reset
+</button>
 
 </div>
 
@@ -557,57 +705,45 @@ LIVE SYNC
 <div class="kpis">
 
 <div class="kpi">
-<div class="kpi-top">
 <div class="kpi-icon">👨‍🎓</div>
-</div>
 <div class="kpi-value" id="kTotal">0</div>
 <div class="kpi-label">Total Students</div>
 <div class="kpi-sub" id="kSub1"></div>
 </div>
 
 <div class="kpi">
-<div class="kpi-top">
-<div class="kpi-icon">📞</div>
-</div>
-<div class="kpi-value" style="color:var(--green)" id="kCalled">0%</div>
-<div class="kpi-label">Calling Done</div>
-<div class="kpi-sub" id="kSub2"></div>
-</div>
-
-<div class="kpi">
-<div class="kpi-top">
 <div class="kpi-icon">✅</div>
-</div>
-<div class="kpi-value" style="color:#29b6f6" id="kAttend">0%</div>
-<div class="kpi-label">Attendance</div>
-<div class="kpi-sub" id="kSub3"></div>
-</div>
-
-<div class="kpi">
-<div class="kpi-top">
-<div class="kpi-icon">🏆</div>
-</div>
-<div class="kpi-value" style="color:var(--orange)" id="kAvg">0%</div>
-<div class="kpi-label">Average Score</div>
-<div class="kpi-sub" id="kSub4"></div>
+<div class="kpi-value" style="color:var(--green)" id="kPresent">0</div>
+<div class="kpi-label">Present</div>
+<div class="kpi-sub"></div>
 </div>
 
 <div class="kpi">
-<div class="kpi-top">
+<div class="kpi-icon">❌</div>
+<div class="kpi-value" style="color:var(--red)" id="kAbsent">0</div>
+<div class="kpi-label">Absent</div>
+<div class="kpi-sub"></div>
+</div>
+
+<div class="kpi">
+<div class="kpi-icon">📞</div>
+<div class="kpi-value" style="color:var(--blue)" id="kCalled">0</div>
+<div class="kpi-label">Calls Done</div>
+<div class="kpi-sub"></div>
+</div>
+
+<div class="kpi">
 <div class="kpi-icon">⏳</div>
-</div>
-<div class="kpi-value" style="color:var(--red)" id="kPending">0</div>
+<div class="kpi-value" style="color:var(--orange)" id="kPending">0</div>
 <div class="kpi-label">Pending Calls</div>
-<div class="kpi-sub" id="kSub5"></div>
+<div class="kpi-sub"></div>
 </div>
 
 <div class="kpi">
-<div class="kpi-top">
-<div class="kpi-icon">📋</div>
-</div>
-<div class="kpi-value" style="color:var(--purple)" id="kTests">0</div>
-<div class="kpi-label">Tests</div>
-<div class="kpi-sub" id="kSub6"></div>
+<div class="kpi-icon">🏆</div>
+<div class="kpi-value" style="color:var(--purple)" id="kAvg">0%</div>
+<div class="kpi-label">Average Score</div>
+<div class="kpi-sub"></div>
 </div>
 
 </div>
@@ -617,11 +753,59 @@ LIVE SYNC
 <div class="panel" style="margin-bottom:24px;">
 
 <div class="panel-head">
-<div class="panel-title">GLOBAL STUDENT HEAT MAP</div>
+<div class="panel-title">
+COUNTRY VISUAL ANALYTICS
+</div>
 </div>
 
 <div class="panel-body">
-<div id="worldMap"></div>
+
+<div class="map-card">
+
+<div class="country-box">
+
+<div class="glow g1"></div>
+<div class="glow g2"></div>
+<div class="glow g3"></div>
+
+<div class="country-name" id="mapTitle">
+GLOBAL VIEW
+</div>
+
+<div class="country-stats">
+
+<div class="stat-chip present" id="mapPresent">
+Present: 0
+</div>
+
+<div class="stat-chip absent" id="mapAbsent">
+Absent: 0
+</div>
+
+<div class="stat-chip called" id="mapCalled">
+Called: 0
+</div>
+
+<div class="stat-chip pending" id="mapPending">
+Pending: 0
+</div>
+
+</div>
+
+<img
+id="countryImage"
+src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg"
+style="
+width:70%;
+opacity:.9;
+filter:drop-shadow(0 0 30px rgba(0,198,255,.25));
+"
+/>
+
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -633,13 +817,11 @@ LIVE SYNC
 <div class="panel">
 
 <div class="panel-head">
-<div class="panel-title">COUNTRY WISE STUDENTS</div>
+<div class="panel-title">COUNTRY STUDENTS</div>
 </div>
 
 <div class="panel-body">
-<div class="chartBox">
-<canvas id="countryChart"></canvas>
-</div>
+<canvas id="countryChart" height="280"></canvas>
 </div>
 
 </div>
@@ -647,13 +829,11 @@ LIVE SYNC
 <div class="panel">
 
 <div class="panel-head">
-<div class="panel-title">CALLING STATUS</div>
+<div class="panel-title">CALLING ANALYTICS</div>
 </div>
 
 <div class="panel-body">
-<div class="chartBox">
-<canvas id="callChart"></canvas>
-</div>
+<canvas id="callChart" height="280"></canvas>
 </div>
 
 </div>
@@ -665,9 +845,7 @@ LIVE SYNC
 </div>
 
 <div class="panel-body">
-<div class="chartBox">
-<canvas id="gradeChart"></canvas>
-</div>
+<canvas id="gradeChart" height="280"></canvas>
 </div>
 
 </div>
@@ -676,12 +854,10 @@ LIVE SYNC
 
 <!-- TABLE -->
 
-<div class="grid2">
-
 <div class="panel">
 
 <div class="panel-head">
-<div class="panel-title">COUNTRY ANALYTICS</div>
+<div class="panel-title">PENDING CALL STUDENTS</div>
 </div>
 
 <div class="panel-body">
@@ -691,40 +867,13 @@ LIVE SYNC
 <thead>
 
 <tr>
-<th>Country</th>
-<th>Total</th>
-<th>Present</th>
-<th>Absent</th>
-<th>Calling</th>
-</tr>
 
-</thead>
-
-<tbody id="countryBody"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-<div class="panel">
-
-<div class="panel-head">
-<div class="panel-title">PENDING CALLS</div>
-</div>
-
-<div class="panel-body">
-
-<table>
-
-<thead>
-
-<tr>
+<th>Form No</th>
 <th>Name</th>
 <th>Country</th>
 <th>Grade</th>
 <th>Status</th>
+
 </tr>
 
 </thead>
@@ -739,14 +888,12 @@ LIVE SYNC
 
 </div>
 
-</div>
-
-<!-- FOOT -->
+<!-- FOOTER -->
 
 <div class="footer">
 
 <div>
-Overseas Tracker X
+Overseas Tracker Ultra
 </div>
 
 <div id="footerStats"></div>
@@ -755,10 +902,12 @@ Overseas Tracker X
 
 <script>
 
-/* YOUR WEB APP URL */
+/* WEB APP */
 
 const SHEET_API =
 "https://script.google.com/macros/s/AKfycbwGD8hn_Bpo_qnZOQ5My9_u_R6sb8utNiRvq4ALxkwfwSn6m7W6w8NCkFgtFIbxBYrE/exec";
+
+/* DATA */
 
 let DATA = [];
 let filtered = [];
@@ -767,31 +916,32 @@ let countryChart;
 let callChart;
 let gradeChart;
 
-/* COUNTRY COORDS */
+/* MAP IMAGES */
 
-const countryCoords = {
+const MAPS = {
 
-"UAE":[24.4539,54.3773],
-"QATAR":[25.3548,51.1839],
-"KUWAIT":[29.3759,47.9774],
-"BAHRAIN":[26.0667,50.5577],
-"OMAN":[21.4735,55.9754],
-"SAUDI ARABIA":[23.8859,45.0792]
+GLOBAL:
+"https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg",
+
+UAE:
+"https://upload.wikimedia.org/wikipedia/commons/e/e8/UAE_location_map.svg",
+
+QATAR:
+"https://upload.wikimedia.org/wikipedia/commons/4/41/Qatar_location_map.svg",
+
+KUWAIT:
+"https://upload.wikimedia.org/wikipedia/commons/0/08/Kuwait_location_map.svg",
+
+BAHRAIN:
+"https://upload.wikimedia.org/wikipedia/commons/2/20/Bahrain_location_map.svg",
+
+OMAN:
+"https://upload.wikimedia.org/wikipedia/commons/d/dd/Oman_location_map.svg",
+
+"SAUDI ARABIA":
+"https://upload.wikimedia.org/wikipedia/commons/6/6f/Saudi_Arabia_location_map.svg"
 
 };
-
-const map = L.map('worldMap',{
-zoomControl:true
-}).setView([23,55],4);
-
-L.tileLayer(
-'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-{
-attribution:'© OpenStreetMap'
-}
-).addTo(map);
-
-let markers = [];
 
 /* LOAD */
 
@@ -811,17 +961,19 @@ formNo:r[2] || "",
 student:r[3] || "",
 country:(r[4] || "").toUpperCase(),
 score:Number(r[5] || 0),
-attendance:r[6] || "Absent",
+
+attendance:
+r[6] || "Absent",
 
 called:
 r[7] === true ||
 r[7] === "TRUE" ||
-r[7] === "YES" ||
-r[7] === "Yes"
+r[7] === "Yes" ||
+r[7] === "YES"
 
 }));
 
-filtered = [...DATA];
+filtered=[...DATA];
 
 render();
 
@@ -833,31 +985,22 @@ console.log(err);
 
 }
 
-/* FILTERS */
+/* FILTER */
 
 function applyFilters(){
 
-const g =
-document.getElementById("fGrade").value;
-
-const c =
+const country =
 document.getElementById("fCountry").value;
 
-const s =
-document.getElementById("fCall").value;
+const grade =
+document.getElementById("fGrade").value;
 
 filtered = DATA.filter(r=>{
 
-if(g && r.grade != g)
+if(country && r.country !== country)
 return false;
 
-if(c && r.country != c)
-return false;
-
-if(s === "CALLED" && !r.called)
-return false;
-
-if(s === "PENDING" && r.called)
+if(grade && r.grade != grade)
 return false;
 
 return true;
@@ -868,11 +1011,12 @@ render();
 
 }
 
+/* RESET */
+
 function resetFilters(){
 
-document.getElementById("fGrade").value="";
 document.getElementById("fCountry").value="";
-document.getElementById("fCall").value="";
+document.getElementById("fGrade").value="";
 
 filtered=[...DATA];
 
@@ -886,27 +1030,17 @@ function render(){
 
 const total = filtered.length;
 
-const called =
-filtered.filter(r=>r.called).length;
-
-const pending =
-total - called;
-
 const present =
 filtered.filter(r=>r.attendance==="Present").length;
 
 const absent =
 total - present;
 
-const callPct =
-total
-? Math.round(called/total*100)
-: 0;
+const called =
+filtered.filter(r=>r.called).length;
 
-const attPct =
-total
-? Math.round(present/total*100)
-: 0;
+const pending =
+total - called;
 
 const scores =
 filtered
@@ -923,215 +1057,53 @@ scores.reduce((a,b)=>a+b,0)
 
 /* KPI */
 
-document.getElementById("kTotal").textContent =
-total;
-
-document.getElementById("kCalled").textContent =
-callPct + "%";
-
-document.getElementById("kAttend").textContent =
-attPct + "%";
-
-document.getElementById("kAvg").textContent =
-avg + "%";
-
-document.getElementById("kPending").textContent =
-pending;
-
-document.getElementById("kTests").textContent =
-[...new Set(filtered.map(r=>r.test))].length;
+document.getElementById("kTotal").textContent=total;
+document.getElementById("kPresent").textContent=present;
+document.getElementById("kAbsent").textContent=absent;
+document.getElementById("kCalled").textContent=called;
+document.getElementById("kPending").textContent=pending;
+document.getElementById("kAvg").textContent=avg + "%";
 
 document.getElementById("kSub1").textContent =
-called + " called";
+called + " students called";
 
-document.getElementById("kSub2").textContent =
-pending + " pending";
+/* MAP */
 
-document.getElementById("kSub3").textContent =
-present + " present";
+const selectedCountry =
+document.getElementById("fCountry").value;
 
-document.getElementById("kSub4").textContent =
-scores.length + " attempts";
+document.getElementById("countryImage").src =
+selectedCountry
+? MAPS[selectedCountry]
+: MAPS.GLOBAL;
 
-document.getElementById("kSub5").textContent =
-"Need action";
+document.getElementById("mapTitle").textContent =
+selectedCountry || "GLOBAL VIEW";
 
-document.getElementById("kSub6").textContent =
-"Live synced";
+document.getElementById("mapPresent").textContent =
+"Present: " + present;
 
-/* COUNTRY MAP */
+document.getElementById("mapAbsent").textContent =
+"Absent: " + absent;
+
+document.getElementById("mapCalled").textContent =
+"Called: " + called;
+
+document.getElementById("mapPending").textContent =
+"Pending: " + pending;
+
+/* COUNTRY CHART */
 
 const countryMap = {};
 
 filtered.forEach(r=>{
 
-const c = r.country || "OTHER";
+if(!countryMap[r.country])
+countryMap[r.country]=0;
 
-if(!countryMap[c]){
-
-countryMap[c] = {
-
-total:0,
-present:0,
-absent:0,
-called:0
-
-};
-
-}
-
-countryMap[c].total++;
-
-if(r.called)
-countryMap[c].called++;
-
-if(r.attendance==="Present")
-countryMap[c].present++;
-else
-countryMap[c].absent++;
+countryMap[r.country]++;
 
 });
-
-/* MAP MARKERS */
-
-markers.forEach(m=>map.removeLayer(m));
-
-markers=[];
-
-Object.keys(countryMap).forEach(c=>{
-
-if(countryCoords[c]){
-
-const d = countryMap[c];
-
-const pct =
-Math.round(
-d.called/d.total*100
-);
-
-const marker = L.circleMarker(
-countryCoords[c],
-{
-radius:10 + d.total/4,
-fillColor:
-pct >= 75
-? "#00e676"
-: pct >= 50
-? "#ffb74d"
-: "#ff4569",
-
-color:"#fff",
-weight:1,
-fillOpacity:.8
-
-}
-).addTo(map);
-
-marker.bindPopup(`
-
-<div style="font-family:sans-serif">
-
-<b>${c}</b><br><br>
-
-Students: ${d.total}<br>
-Present: ${d.present}<br>
-Absent: ${d.absent}<br>
-Calling: ${pct}%<br>
-
-</div>
-
-`);
-
-markers.push(marker);
-
-}
-
-});
-
-/* COUNTRY TABLE */
-
-document.getElementById("countryBody")
-.innerHTML =
-
-Object.keys(countryMap)
-.map(c=>{
-
-const d = countryMap[c];
-
-const pct =
-Math.round(
-d.called/d.total*100
-);
-
-return `
-
-<tr>
-
-<td>${c}</td>
-
-<td>${d.total}</td>
-
-<td>${d.present}</td>
-
-<td>${d.absent}</td>
-
-<td>
-
-<span class="chip ${
-pct >= 75
-? "green"
-: pct >= 50
-? "orange"
-: "red"
-}">
-
-${pct}%
-
-</span>
-
-</td>
-
-</tr>
-
-`;
-
-}).join("");
-
-/* PENDING */
-
-document.getElementById("pendingBody")
-.innerHTML =
-
-filtered
-.filter(r=>!r.called)
-.slice(0,15)
-.map(r=>`
-
-<tr>
-
-<td>${r.student}</td>
-
-<td>${r.country}</td>
-
-<td>${r.grade}</td>
-
-<td>
-<span class="chip red">
-Pending
-</span>
-</td>
-
-</tr>
-
-`).join("");
-
-/* COUNTRY CHART */
-
-const labels =
-Object.keys(countryMap);
-
-const values =
-labels.map(c=>countryMap[c].total);
 
 if(countryChart)
 countryChart.destroy();
@@ -1141,39 +1113,49 @@ countryChart = new Chart(
 document.getElementById("countryChart"),
 
 {
+
 type:"bar",
 
 data:{
-labels,
+
+labels:Object.keys(countryMap),
+
 datasets:[{
-data:values
+
+label:"Students",
+
+data:Object.values(countryMap),
+
+borderWidth:1
+
 }]
+
 },
 
 options:{
-responsive:true,
+
 plugins:{
 legend:{
-display:false
+labels:{
+color:"#fff"
+}
 }
 },
+
 scales:{
+
 x:{
 ticks:{
-color:"#9fb3d1"
-},
-grid:{
-color:"rgba(255,255,255,.05)"
+color:"#a5b8d5"
 }
 },
+
 y:{
 ticks:{
-color:"#9fb3d1"
-},
-grid:{
-color:"rgba(255,255,255,.05)"
+color:"#a5b8d5"
 }
 }
+
 }
 
 }
@@ -1190,28 +1172,38 @@ callChart = new Chart(
 document.getElementById("callChart"),
 
 {
+
 type:"doughnut",
 
 data:{
+
 labels:["Called","Pending"],
+
 datasets:[{
+
 data:[called,pending]
+
 }]
+
 },
 
 options:{
+
 plugins:{
+
 legend:{
 labels:{
 color:"#fff"
 }
 }
+
 }
+
 }
 
 });
 
-/* GRADE */
+/* GRADE CHART */
 
 const gradeMap = {};
 
@@ -1232,50 +1224,89 @@ gradeChart = new Chart(
 document.getElementById("gradeChart"),
 
 {
+
 type:"line",
 
 data:{
+
 labels:Object.keys(gradeMap),
+
 datasets:[{
+
+label:"Students",
+
 data:Object.values(gradeMap),
+
 tension:.4
+
 }]
+
 },
 
 options:{
+
 plugins:{
 legend:{
-display:false
+labels:{
+color:"#fff"
+}
 }
 },
+
 scales:{
+
 x:{
 ticks:{
-color:"#9fb3d1"
-},
-grid:{
-color:"rgba(255,255,255,.05)"
+color:"#a5b8d5"
 }
 },
+
 y:{
 ticks:{
-color:"#9fb3d1"
-},
-grid:{
-color:"rgba(255,255,255,.05)"
+color:"#a5b8d5"
 }
 }
+
 }
+
 }
 
 });
 
+/* TABLE */
+
+document.getElementById("pendingBody").innerHTML =
+
+filtered
+.filter(r=>!r.called)
+.slice(0,20)
+.map(r=>`
+
+<tr>
+
+<td>${r.formNo}</td>
+
+<td>${r.student}</td>
+
+<td>${r.country}</td>
+
+<td>${r.grade}</td>
+
+<td>
+<span class="chip red">
+Pending
+</span>
+</td>
+
+</tr>
+
+`).join("");
+
 /* FOOTER */
 
-document.getElementById("footerStats")
-.textContent =
+document.getElementById("footerStats").textContent =
 
-`${total} Records | ${called} Called | ${pending} Pending`;
+`${total} Students | ${present} Present | ${absent} Absent | ${called} Called`;
 
 }
 
