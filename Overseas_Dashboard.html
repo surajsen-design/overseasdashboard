@@ -1,29 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Overseas Online Tracker PRO</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Overseas Online Tracker</title>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 
 :root{
-  --bg:#07111f;
-  --panel:#101c30;
-  --panel2:#172844;
-  --border:#22395f;
+  --bg:#080d1a;
+  --bg2:#0d1525;
+  --panel:#0f1a2e;
+  --panel2:#162038;
+  --border:#1f3357;
   --accent:#00c6ff;
   --green:#00e676;
-  --red:#ff4d6d;
-  --orange:#ffb347;
+  --red:#ff3d5a;
+  --orange:#ffab40;
   --purple:#b388ff;
-  --text:#ecf3ff;
-  --text2:#9db4d1;
+  --text:#e8f0fe;
+  --text2:#9ab0c9;
+  --text3:#5c6f8c;
+  --font-head:'Rajdhani',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
 }
 
 *{
@@ -33,233 +38,217 @@
 }
 
 body{
-  background:linear-gradient(180deg,#050b16,#08111f);
+  background:var(--bg);
   color:var(--text);
-  font-family:'IBM Plex Sans',sans-serif;
+  font-family:var(--font-body);
 }
 
-/* TOP */
+/* TOPBAR */
 
 .topbar{
-  height:74px;
-  padding:0 24px;
+  height:72px;
+  background:linear-gradient(90deg,#060c18,var(--bg2));
+  border-bottom:1px solid var(--border);
+
   display:flex;
   align-items:center;
   justify-content:space-between;
-  border-bottom:1px solid var(--border);
-  background:#091321;
+
+  padding:0 30px;
 }
 
 .logo{
   display:flex;
-  gap:14px;
   align-items:center;
+  gap:12px;
 }
 
 .logo-icon{
   width:44px;
   height:44px;
-  border-radius:14px;
+  border-radius:12px;
+
   background:linear-gradient(135deg,#0072ff,#00c6ff);
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   font-size:20px;
 }
 
 .logo-title{
+  font-family:var(--font-head);
   font-size:24px;
-  font-family:'Rajdhani',sans-serif;
   font-weight:700;
-  letter-spacing:1px;
 }
 
 .logo-sub{
   font-size:11px;
-  color:#7d97b9;
+  color:var(--text3);
+  font-family:var(--font-mono);
 }
 
 .live{
+  display:flex;
+  align-items:center;
+  gap:8px;
+
   color:var(--green);
   font-size:12px;
+  font-family:var(--font-mono);
+}
+
+.live-dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--green);
+
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.4);}
+  100%{transform:scale(1);}
 }
 
 /* FILTER */
 
 .filters{
-  padding:16px 24px;
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
+  background:var(--bg2);
   border-bottom:1px solid var(--border);
-  background:#0d1728;
+
+  padding:14px 30px;
+
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
 }
 
-select{
+select,
+button{
   background:var(--panel);
+
   border:1px solid var(--border);
-  color:white;
-  padding:10px 12px;
+
+  color:var(--text);
+
+  padding:10px 14px;
+
   border-radius:10px;
-  min-width:170px;
+
+  font-size:12px;
 }
 
 button{
-  background:linear-gradient(135deg,#0072ff,#00c6ff);
-  border:none;
-  color:white;
-  padding:10px 18px;
-  border-radius:10px;
   cursor:pointer;
-  font-weight:600;
+}
+
+button:hover{
+  border-color:var(--accent);
+  color:var(--accent);
 }
 
 /* MAIN */
 
 .main{
-  padding:24px;
+  padding:24px 30px;
 }
 
 /* KPI */
 
-.kpis{
+.kpi-row{
   display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:18px;
+  grid-template-columns:repeat(6,1fr);
+  gap:16px;
   margin-bottom:24px;
 }
 
 .kpi{
-  background:linear-gradient(145deg,#0f1a2f,#152540);
+  background:var(--panel);
   border:1px solid var(--border);
-  border-radius:20px;
+  border-radius:16px;
+
   padding:20px;
 }
 
-.kpi-top{
-  font-size:13px;
-  color:var(--text2);
+.kpi-value{
+  font-size:34px;
+  font-family:var(--font-head);
+  font-weight:700;
+
+  margin-top:10px;
 }
 
-.kpi-value{
-  font-size:42px;
-  font-family:'Rajdhani',sans-serif;
-  font-weight:700;
+.kpi-label{
   margin-top:8px;
+
+  font-size:11px;
+  color:var(--text3);
+
+  letter-spacing:1px;
+}
+
+.kpi-sub{
+  margin-top:6px;
+
+  font-size:11px;
+  color:var(--text2);
+
+  font-family:var(--font-mono);
 }
 
 /* GRID */
 
 .grid2{
   display:grid;
-  grid-template-columns:1.3fr 1fr;
-  gap:22px;
-  margin-bottom:22px;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+
+  margin-bottom:24px;
 }
 
+.grid3{
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr;
+  gap:20px;
+
+  margin-bottom:24px;
+}
+
+/* PANEL */
+
 .panel{
-  background:linear-gradient(145deg,#0d182b,#12203a);
+  background:var(--panel);
+
   border:1px solid var(--border);
-  border-radius:22px;
+
+  border-radius:18px;
+
   overflow:hidden;
+
+  margin-bottom:24px;
 }
 
 .panel-head{
-  padding:16px 20px;
+  background:var(--panel2);
+
   border-bottom:1px solid var(--border);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:#16253f;
+
+  padding:16px 20px;
 }
 
 .panel-title{
-  font-family:'Rajdhani',sans-serif;
-  font-size:20px;
+  font-size:15px;
+  font-family:var(--font-head);
   font-weight:700;
+  letter-spacing:1px;
 }
 
 .panel-body{
-  padding:22px;
-}
-
-/* MAP */
-
-.map-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-}
-
-.country-card{
-  background:#0e1930;
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:18px;
-  transition:0.3s;
-}
-
-.country-card:hover{
-  transform:translateY(-4px);
-  border-color:#00c6ff;
-}
-
-.country-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:14px;
-}
-
-.flag{
-  font-size:38px;
-}
-
-.country-name{
-  font-size:18px;
-  font-weight:700;
-}
-
-.map-box{
-  height:120px;
-  border-radius:14px;
-  background:
-  radial-gradient(circle at center,
-  rgba(0,198,255,0.35),
-  rgba(0,114,255,0.08));
-
-  border:1px solid rgba(255,255,255,0.06);
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  font-size:50px;
-}
-
-.stats{
-  margin-top:14px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-
-.stat{
-  background:#16253f;
-  padding:10px;
-  border-radius:12px;
-  text-align:center;
-}
-
-.stat-value{
-  font-size:22px;
-  font-family:'Rajdhani',sans-serif;
-  font-weight:700;
-}
-
-.stat-label{
-  font-size:11px;
-  color:var(--text2);
+  padding:20px;
 }
 
 /* TABLE */
@@ -270,68 +259,246 @@ table{
 }
 
 th{
-  text-align:left;
   padding:12px;
-  font-size:12px;
-  color:#7f97ba;
+  text-align:left;
+
+  font-size:10px;
+
+  color:var(--text3);
+
   border-bottom:1px solid var(--border);
+
+  font-family:var(--font-mono);
 }
 
 td{
   padding:12px;
-  border-bottom:1px solid rgba(255,255,255,0.05);
-  font-size:13px;
+
+  font-size:12px;
+
+  color:var(--text2);
+
+  border-bottom:1px solid rgba(255,255,255,0.04);
 }
 
 tr:hover td{
-  background:rgba(255,255,255,0.03);
+  background:rgba(255,255,255,0.02);
 }
+
+/* CHIPS */
 
 .chip{
   padding:4px 10px;
-  border-radius:30px;
-  font-size:11px;
-  font-weight:700;
-}
+  border-radius:20px;
 
-.red{
-  background:rgba(255,77,109,0.12);
-  color:#ff4d6d;
+  font-size:10px;
+
+  font-family:var(--font-mono);
 }
 
 .green{
-  background:rgba(0,230,118,0.12);
-  color:#00e676;
+  background:rgba(0,230,118,0.1);
+  color:var(--green);
 }
 
-/* CHART */
+.red{
+  background:rgba(255,61,90,0.1);
+  color:var(--red);
+}
 
-canvas{
-  max-height:350px;
+.orange{
+  background:rgba(255,171,64,0.1);
+  color:var(--orange);
+}
+
+/* BARS */
+
+.hbar{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.hbar-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.hbar-label{
+  width:80px;
+  font-size:12px;
+}
+
+.hbar-track{
+  flex:1;
+
+  height:18px;
+
+  background:rgba(255,255,255,0.06);
+
+  border-radius:6px;
+
+  overflow:hidden;
+}
+
+.hbar-fill{
+  height:100%;
+
+  background:linear-gradient(90deg,#0072ff,#00c6ff);
+
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+
+  padding-right:8px;
+
+  font-size:10px;
+  color:white;
+
+  font-family:var(--font-mono);
+}
+
+.hbar-pct{
+  width:45px;
+  text-align:right;
+  font-size:11px;
+}
+
+/* DONUT */
+
+.donut-wrap{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* MAP GRID */
+
+.map-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:18px;
+}
+
+.map-card{
+  position:relative;
+
+  overflow:hidden;
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(0,198,255,0.08),
+    rgba(0,114,255,0.04)
+  );
+
+  border:1px solid var(--border);
+
+  border-radius:18px;
+
+  padding:20px;
+
+  min-height:240px;
+
+  transition:0.3s;
+}
+
+.map-card:hover{
+  transform:translateY(-4px);
+
+  border-color:var(--accent);
+
+  box-shadow:0 0 25px rgba(0,198,255,0.15);
+}
+
+.map-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-bottom:18px;
+}
+
+.map-country{
+  font-size:20px;
+  font-family:var(--font-head);
+  font-weight:700;
+}
+
+.map-svg{
+  position:absolute;
+  right:-20px;
+  bottom:-20px;
+
+  opacity:0.12;
+}
+
+.map-stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.map-stat{
+  background:rgba(255,255,255,0.04);
+
+  border-radius:12px;
+
+  padding:12px;
+}
+
+.map-stat-value{
+  font-size:24px;
+  font-family:var(--font-head);
+  font-weight:700;
+}
+
+.map-stat-label{
+  margin-top:4px;
+
+  font-size:11px;
+  color:var(--text3);
+}
+
+/* FOOTER */
+
+.footer{
+  padding:16px 30px;
+
+  border-top:1px solid var(--border);
+
+  font-size:11px;
+  color:var(--text3);
+
+  font-family:var(--font-mono);
+
+  display:flex;
+  justify-content:space-between;
 }
 
 /* MOBILE */
 
 @media(max-width:1100px){
 
-  .kpis{
-    grid-template-columns:1fr 1fr;
+  .kpi-row{
+    grid-template-columns:repeat(2,1fr);
   }
 
-  .grid2{
-    grid-template-columns:1fr;
-  }
-
-  .map-grid{
+  .grid2,
+  .grid3{
     grid-template-columns:1fr;
   }
 
 }
 
 </style>
+
 </head>
 
 <body>
+
+<!-- TOPBAR -->
 
 <div class="topbar">
 
@@ -340,119 +507,278 @@ canvas{
     <div class="logo-icon">🎓</div>
 
     <div>
-      <div class="logo-title">OVERSEAS ONLINE TRACKER PRO</div>
-      <div class="logo-sub">GLOBAL PERFORMANCE & CALLING ANALYTICS</div>
+      <div class="logo-title">
+        OVERSEAS ONLINE TRACKER
+      </div>
+
+      <div class="logo-sub">
+        TEST ANALYTICS & CALLING MONITOR
+      </div>
     </div>
 
   </div>
 
-  <div class="live">● LIVE SHEET CONNECTED</div>
+  <div class="live">
+    <div class="live-dot"></div>
+    LIVE DATA
+  </div>
 
 </div>
+
+<!-- FILTERS -->
 
 <div class="filters">
 
-  <select id="countryFilter" onchange="applyFilters()">
-    <option value="">All Countries</option>
-  </select>
-
-  <select id="gradeFilter" onchange="applyFilters()">
+  <select id="fGrade" onchange="applyFilters()">
     <option value="">All Grades</option>
+    <option>6</option>
+    <option>7</option>
+    <option>8</option>
+    <option>9</option>
+    <option>10</option>
+    <option>11</option>
+    <option>12</option>
   </select>
 
-  <button onclick="resetFilters()">Reset</button>
+  <select id="fCountry" onchange="applyFilters()">
+    <option value="">All Countries</option>
+    <option>UAE</option>
+    <option>Qatar</option>
+    <option>Kuwait</option>
+    <option>Bahrain</option>
+    <option>Oman</option>
+    <option>Saudi Arabia</option>
+    <option>USA</option>
+    <option>UK</option>
+    <option>Australia</option>
+  </select>
+
+  <select id="fCall" onchange="applyFilters()">
+    <option value="">All Call Status</option>
+    <option value="CALLED">Called</option>
+    <option value="PENDING">Pending</option>
+  </select>
+
+  <button onclick="resetFilters()">
+    Reset
+  </button>
 
 </div>
 
+<!-- MAIN -->
+
 <div class="main">
 
-  <!-- KPI -->
+<!-- KPI -->
 
-  <div class="kpis">
+<div class="kpi-row">
 
-    <div class="kpi">
-      <div class="kpi-top">TOTAL STUDENTS</div>
-      <div class="kpi-value" id="kTotal">0</div>
-    </div>
-
-    <div class="kpi">
-      <div class="kpi-top">PRESENT</div>
-      <div class="kpi-value" style="color:var(--green)" id="kPresent">0</div>
-    </div>
-
-    <div class="kpi">
-      <div class="kpi-top">ABSENT</div>
-      <div class="kpi-value" style="color:var(--red)" id="kAbsent">0</div>
-    </div>
-
-    <div class="kpi">
-      <div class="kpi-top">CALL DONE</div>
-      <div class="kpi-value" style="color:var(--accent)" id="kCalled">0</div>
-    </div>
-
-    <div class="kpi">
-      <div class="kpi-top">AVG %</div>
-      <div class="kpi-value" style="color:var(--orange)" id="kAvg">0%</div>
-    </div>
-
+  <div class="kpi">
+    <div>👥</div>
+    <div class="kpi-value" id="kTotal">0</div>
+    <div class="kpi-label">TOTAL STUDENTS</div>
+    <div class="kpi-sub" id="kSub1"></div>
   </div>
 
-  <!-- MAPS -->
-
-  <div class="panel" style="margin-bottom:22px;">
-
-    <div class="panel-head">
-      <div class="panel-title">GLOBAL COUNTRY MAPS</div>
-    </div>
-
-    <div class="panel-body">
-
-      <div class="map-grid" id="mapGrid"></div>
-
-    </div>
-
+  <div class="kpi">
+    <div>📞</div>
+    <div class="kpi-value" style="color:var(--green)" id="kCalled">0%</div>
+    <div class="kpi-label">CALLING DONE</div>
+    <div class="kpi-sub" id="kSub2"></div>
   </div>
 
-  <!-- CHART -->
-
-  <div class="grid2">
-
-    <div class="panel">
-
-      <div class="panel-head">
-        <div class="panel-title">COUNTRY PERFORMANCE</div>
-      </div>
-
-      <div class="panel-body">
-
-        <canvas id="countryChart"></canvas>
-
-      </div>
-
-    </div>
-
-    <div class="panel">
-
-      <div class="panel-head">
-        <div class="panel-title">GRADE ANALYTICS</div>
-      </div>
-
-      <div class="panel-body">
-
-        <canvas id="gradeChart"></canvas>
-
-      </div>
-
-    </div>
-
+  <div class="kpi">
+    <div>✅</div>
+    <div class="kpi-value" style="color:#29b6f6" id="kAttend">0%</div>
+    <div class="kpi-label">ATTENDANCE</div>
+    <div class="kpi-sub" id="kSub3"></div>
   </div>
 
-  <!-- TABLE -->
+  <div class="kpi">
+    <div>🏆</div>
+    <div class="kpi-value" style="color:var(--orange)" id="kAvg">0%</div>
+    <div class="kpi-label">AVERAGE SCORE</div>
+    <div class="kpi-sub" id="kSub4"></div>
+  </div>
+
+  <div class="kpi">
+    <div>⏳</div>
+    <div class="kpi-value" style="color:var(--red)" id="kPending">0</div>
+    <div class="kpi-label">PENDING CALLS</div>
+    <div class="kpi-sub" id="kSub5"></div>
+  </div>
+
+  <div class="kpi">
+    <div>📋</div>
+    <div class="kpi-value" style="color:var(--purple)" id="kTests">0</div>
+    <div class="kpi-label">TESTS</div>
+    <div class="kpi-sub" id="kSub6"></div>
+  </div>
+
+</div>
+
+<!-- GRID -->
+
+<div class="grid3">
 
   <div class="panel">
 
     <div class="panel-head">
-      <div class="panel-title">PENDING CALL STUDENTS</div>
+      <div class="panel-title">
+        GRADE ANALYTICS
+      </div>
+    </div>
+
+    <div class="panel-body">
+      <div class="hbar" id="gradeChart"></div>
+    </div>
+
+  </div>
+
+  <div class="panel">
+
+    <div class="panel-head">
+      <div class="panel-title">
+        CALLING STATUS
+      </div>
+    </div>
+
+    <div class="panel-body">
+
+      <div class="donut-wrap">
+
+        <svg width="140" height="140" viewBox="0 0 120 120">
+
+          <circle
+            cx="60"
+            cy="60"
+            r="44"
+            fill="none"
+            stroke="rgba(255,255,255,0.08)"
+            stroke-width="16"
+          />
+
+          <circle
+            id="callCircle"
+            cx="60"
+            cy="60"
+            r="44"
+            fill="none"
+            stroke="var(--green)"
+            stroke-width="16"
+            stroke-dasharray="0 276"
+            stroke-linecap="round"
+            transform="rotate(-90 60 60)"
+          />
+
+          <text
+            x="60"
+            y="58"
+            text-anchor="middle"
+            fill="white"
+            font-size="18"
+            font-family="Rajdhani"
+            id="callPct">
+
+            0%
+
+          </text>
+
+        </svg>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="panel">
+
+    <div class="panel-head">
+      <div class="panel-title">
+        ATTENDANCE
+      </div>
+    </div>
+
+    <div class="panel-body">
+
+      <div class="donut-wrap">
+
+        <svg width="140" height="140" viewBox="0 0 120 120">
+
+          <circle
+            cx="60"
+            cy="60"
+            r="44"
+            fill="none"
+            stroke="rgba(255,255,255,0.08)"
+            stroke-width="16"
+          />
+
+          <circle
+            id="attCircle"
+            cx="60"
+            cy="60"
+            r="44"
+            fill="none"
+            stroke="#29b6f6"
+            stroke-width="16"
+            stroke-dasharray="0 276"
+            stroke-linecap="round"
+            transform="rotate(-90 60 60)"
+          />
+
+          <text
+            x="60"
+            y="58"
+            text-anchor="middle"
+            fill="white"
+            font-size="18"
+            font-family="Rajdhani"
+            id="attPct">
+
+            0%
+
+          </text>
+
+        </svg>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- MAPS -->
+
+<div class="panel">
+
+  <div class="panel-head">
+    <div class="panel-title">
+      GLOBAL COUNTRY VISUALS
+    </div>
+  </div>
+
+  <div class="panel-body">
+
+    <div id="mapGrid" class="map-grid"></div>
+
+  </div>
+
+</div>
+
+<!-- COUNTRY + TEST -->
+
+<div class="grid2">
+
+  <div class="panel">
+
+    <div class="panel-head">
+      <div class="panel-title">
+        COUNTRY ANALYTICS
+      </div>
     </div>
 
     <div class="panel-body">
@@ -461,15 +787,45 @@ canvas{
 
         <thead>
           <tr>
-            <th>Form No</th>
-            <th>Name</th>
             <th>Country</th>
-            <th>Grade</th>
-            <th>Status</th>
+            <th>Total</th>
+            <th>Present</th>
+            <th>Absent</th>
+            <th>Calling</th>
           </tr>
         </thead>
 
-        <tbody id="pendingBody"></tbody>
+        <tbody id="countryBody"></tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+  <div class="panel">
+
+    <div class="panel-head">
+      <div class="panel-title">
+        TEST ANALYTICS
+      </div>
+    </div>
+
+    <div class="panel-body">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Test</th>
+            <th>Total</th>
+            <th>Present</th>
+            <th>Absent</th>
+            <th>Avg</th>
+          </tr>
+        </thead>
+
+        <tbody id="testBody"></tbody>
 
       </table>
 
@@ -479,122 +835,146 @@ canvas{
 
 </div>
 
+<!-- PENDING -->
+
+<div class="panel">
+
+  <div class="panel-head">
+    <div class="panel-title">
+      PENDING CALLS
+    </div>
+  </div>
+
+  <div class="panel-body">
+
+    <table>
+
+      <thead>
+
+        <tr>
+          <th>#</th>
+          <th>Form No</th>
+          <th>Name</th>
+          <th>Grade</th>
+          <th>Country</th>
+          <th>Test</th>
+          <th>Status</th>
+        </tr>
+
+      </thead>
+
+      <tbody id="pendingBody"></tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+</div>
+
+<!-- FOOTER -->
+
+<div class="footer">
+
+  <div>
+    Overseas Online Tracker v2.0
+  </div>
+
+  <div id="footerStats"></div>
+
+</div>
+
 <script>
 
-/* ===== GOOGLE SHEET WEB APP URL ===== */
+/* SHEET API */
 
-const API =
-"https://script.google.com/macros/s/AKfycbwGD8hn_Bpo_qnZOQ5My9_u_R6sb8utNiRvq4ALxkwfwSn6m7W6w8NCkFgtFIbxBYrE/exec";
+const SHEET_API =
+"https://script.google.com/a/macros/allen.in/s/AKfycbzfD47h1jEEuy6Rqs983h8HXlHiK1cgIxEdnga46lnCgNusjIatMpe0hZ-m_uDOS4T1tw/exec";
 
-/* ===== FLAGS ===== */
+let DATA = [];
+let filtered = [];
+
+/* FLAGS */
 
 const FLAGS = {
   UAE:"🇦🇪",
-  QATAR:"🇶🇦",
-  KUWAIT:"🇰🇼",
-  BAHRAIN:"🇧🇭",
-  OMAN:"🇴🇲",
-  "SAUDI ARABIA":"🇸🇦",
-  "NON GCC":"🌍"
+  Qatar:"🇶🇦",
+  Kuwait:"🇰🇼",
+  Bahrain:"🇧🇭",
+  Oman:"🇴🇲",
+  "Saudi Arabia":"🇸🇦",
+  USA:"🇺🇸",
+  UK:"🇬🇧",
+  Australia:"🇦🇺"
 };
 
-let DATA = [];
-let FILTERED = [];
-
-let countryChart;
-let gradeChart;
-
-/* ===== LOAD ===== */
+/* LOAD */
 
 async function loadData(){
 
   try{
 
-    const res = await fetch(API);
+    const response =
+      await fetch(SHEET_API);
 
-    const raw = await res.json();
+    DATA =
+      await response.json();
 
-    DATA = raw.slice(1).map(r=>{
+    DATA =
+      DATA.map(r=>{
 
-      const total = r[11];
+        r[13] =
+          r[13] === true ||
+          r[13] === "TRUE";
 
-      const called =
-      r[13] && r[13].toString().trim() !== "";
+        return r;
 
-      return{
+      });
 
-        form:r[0],
-        name:r[1],
-        country:(r[2] || "").toUpperCase(),
-        grade:r[5],
-        rank:r[6],
-        total:total,
-        attendance:
-          total === "AB"
-          ? "Absent"
-          : "Present",
-
-        called:called
-
-      };
-
-    });
-
-    FILTERED = [...DATA];
-
-    initFilters();
+    filtered = [...DATA];
 
     render();
 
-  }catch(e){
+  }catch(err){
 
-    console.log(e);
+    console.log(err);
 
   }
 
 }
 
-/* ===== FILTERS ===== */
-
-function initFilters(){
-
-  const countries =
-  [...new Set(DATA.map(x=>x.country))];
-
-  const grades =
-  [...new Set(DATA.map(x=>x.grade))];
-
-  document.getElementById("countryFilter")
-  .innerHTML += countries
-  .map(c=>`<option>${c}</option>`)
-  .join("");
-
-  document.getElementById("gradeFilter")
-  .innerHTML += grades
-  .map(g=>`<option>${g}</option>`)
-  .join("");
-
-}
+/* FILTER */
 
 function applyFilters(){
 
-  const c =
-  document.getElementById("countryFilter").value;
-
   const g =
-  document.getElementById("gradeFilter").value;
+    document.getElementById("fGrade").value;
 
-  FILTERED = DATA.filter(x=>{
+  const c =
+    document.getElementById("fCountry").value;
 
-    if(c && x.country !== c)
-      return false;
+  const s =
+    document.getElementById("fCall").value;
 
-    if(g && x.grade != g)
-      return false;
+  filtered =
+    DATA.filter(r=>{
 
-    return true;
+      if(g && r[2] != g)
+        return false;
 
-  });
+      if(c && r[5] != c)
+        return false;
+
+      if(s === "CALLED" && !r[13])
+        return false;
+
+      if(s === "PENDING" && r[13])
+        return false;
+
+      return true;
+
+    });
 
   render();
 
@@ -602,60 +982,193 @@ function applyFilters(){
 
 function resetFilters(){
 
-  document.getElementById("countryFilter").value="";
-  document.getElementById("gradeFilter").value="";
+  document.getElementById("fGrade").value = "";
+  document.getElementById("fCountry").value = "";
+  document.getElementById("fCall").value = "";
 
-  FILTERED=[...DATA];
+  filtered = [...DATA];
 
   render();
 
 }
 
-/* ===== RENDER ===== */
+/* RENDER */
 
 function render(){
 
-  const total = FILTERED.length;
-
-  const present =
-  FILTERED.filter(x=>x.attendance==="Present").length;
-
-  const absent =
-  FILTERED.filter(x=>x.attendance==="Absent").length;
+  const total = filtered.length;
 
   const called =
-  FILTERED.filter(x=>x.called).length;
+    filtered.filter(r=>r[13]).length;
+
+  const pending =
+    total - called;
+
+  const present =
+    filtered.filter(r=>r[10] === "Present").length;
+
+  const absent =
+    total - present;
 
   const scores =
-  FILTERED
-  .filter(x=>x.attendance==="Present")
-  .map(x=>Number(x.total));
+    filtered
+    .filter(r=>r[10] === "Present")
+    .map(r=>Number(r[9] || 0));
 
   const avg =
-  scores.length
-  ? (
-    scores.reduce((a,b)=>a+b,0)
-    / scores.length
-  ).toFixed(1)
-  : 0;
+    scores.length
+    ? (
+      scores.reduce((a,b)=>a+b,0)
+      / scores.length
+    ).toFixed(1)
+    : 0;
+
+  const callPct =
+    total
+    ? Math.round(called/total*100)
+    : 0;
+
+  const attPct =
+    total
+    ? Math.round(present/total*100)
+    : 0;
 
   /* KPI */
 
-  document.getElementById("kTotal").textContent=total;
-  document.getElementById("kPresent").textContent=present;
-  document.getElementById("kAbsent").textContent=absent;
-  document.getElementById("kCalled").textContent=called;
-  document.getElementById("kAvg").textContent=avg+"%";
+  document.getElementById("kTotal").textContent = total;
+  document.getElementById("kCalled").textContent = callPct + "%";
+  document.getElementById("kAttend").textContent = attPct + "%";
+  document.getElementById("kAvg").textContent = avg + "%";
+  document.getElementById("kPending").textContent = pending;
 
-  /* MAPS */
+  document.getElementById("kTests").textContent =
+    [...new Set(filtered.map(r=>r[1]))].length;
+
+  document.getElementById("kSub1").textContent =
+    called + " called";
+
+  document.getElementById("kSub2").textContent =
+    pending + " pending";
+
+  document.getElementById("kSub3").textContent =
+    present + " present";
+
+  document.getElementById("kSub4").textContent =
+    "Based on " + scores.length;
+
+  document.getElementById("kSub5").textContent =
+    "Need action";
+
+  document.getElementById("kSub6").textContent =
+    "Live analytics";
+
+  /* DONUT */
+
+  const circ = 276;
+
+  document.getElementById("callCircle")
+  .setAttribute(
+    "stroke-dasharray",
+    `${circ * callPct / 100} ${circ}`
+  );
+
+  document.getElementById("callPct")
+  .textContent =
+    callPct + "%";
+
+  document.getElementById("attCircle")
+  .setAttribute(
+    "stroke-dasharray",
+    `${circ * attPct / 100} ${circ}`
+  );
+
+  document.getElementById("attPct")
+  .textContent =
+    attPct + "%";
+
+  /* GRADE */
+
+  const gradeMap = {};
+
+  filtered.forEach(r=>{
+
+    const g = r[2];
+
+    if(!gradeMap[g]){
+
+      gradeMap[g] = {
+        total:0,
+        called:0
+      };
+
+    }
+
+    gradeMap[g].total++;
+
+    if(r[13])
+      gradeMap[g].called++;
+
+  });
+
+  const max =
+    Math.max(
+      ...Object.values(gradeMap).map(d=>d.total),
+      1
+    );
+
+  document.getElementById("gradeChart").innerHTML =
+    Object.keys(gradeMap)
+    .sort((a,b)=>a-b)
+    .map(g=>{
+
+      const d = gradeMap[g];
+
+      const pct =
+        Math.round(d.called/d.total*100);
+
+      const width =
+        d.total/max*100;
+
+      return `
+
+      <div class="hbar-item">
+
+        <div class="hbar-label">
+          Grade ${g}
+        </div>
+
+        <div class="hbar-track">
+
+          <div class="hbar-fill"
+            style="width:${width}%">
+
+            ${d.total}
+
+          </div>
+
+        </div>
+
+        <div class="hbar-pct">
+          ${pct}%
+        </div>
+
+      </div>
+
+      `;
+
+    }).join("");
+
+  /* COUNTRY */
 
   const countryMap = {};
 
-  FILTERED.forEach(x=>{
+  filtered.forEach(r=>{
 
-    if(!countryMap[x.country]){
+    const c = r[5] || "Other";
 
-      countryMap[x.country]={
+    if(!countryMap[c]){
+
+      countryMap[c] = {
         total:0,
         present:0,
         absent:0,
@@ -664,230 +1177,292 @@ function render(){
 
     }
 
-    countryMap[x.country].total++;
+    countryMap[c].total++;
 
-    if(x.attendance==="Present")
-      countryMap[x.country].present++;
-
+    if(r[10] === "Present")
+      countryMap[c].present++;
     else
-      countryMap[x.country].absent++;
+      countryMap[c].absent++;
 
-    if(x.called)
-      countryMap[x.country].called++;
+    if(r[13])
+      countryMap[c].called++;
 
   });
+
+  /* COUNTRY TABLE */
+
+  document.getElementById("countryBody").innerHTML =
+    Object.keys(countryMap)
+    .map(c=>{
+
+      const d = countryMap[c];
+
+      const pct =
+        Math.round(d.called/d.total*100);
+
+      return `
+
+      <tr>
+
+        <td>
+          ${FLAGS[c] || "🌍"} ${c}
+        </td>
+
+        <td>${d.total}</td>
+
+        <td>${d.present}</td>
+
+        <td>${d.absent}</td>
+
+        <td>
+
+          <span class="chip ${
+            pct >= 75
+            ? "green"
+            : pct >= 50
+            ? "orange"
+            : "red"
+          }">
+
+            ${pct}%
+
+          </span>
+
+        </td>
+
+      </tr>
+
+      `;
+
+    }).join("");
+
+  /* MAPS */
 
   document.getElementById("mapGrid").innerHTML =
-  Object.keys(countryMap)
-  .map(c=>{
+    Object.keys(countryMap)
+    .map(c=>{
 
-    const d = countryMap[c];
+      const d = countryMap[c];
 
-    return`
+      return `
 
-    <div class="country-card">
+      <div class="map-card">
 
-      <div class="country-top">
+        <div class="map-top">
 
-        <div>
-
-          <div class="country-name">
-            ${c}
+          <div class="map-country">
+            ${FLAGS[c] || "🌍"} ${c}
           </div>
 
         </div>
 
-        <div class="flag">
-          ${FLAGS[c] || "🌍"}
+        <div class="map-stats">
+
+          <div class="map-stat">
+            <div class="map-stat-value">
+              ${d.total}
+            </div>
+            <div class="map-stat-label">
+              TOTAL
+            </div>
+          </div>
+
+          <div class="map-stat">
+            <div class="map-stat-value"
+              style="color:#29b6f6">
+              ${d.present}
+            </div>
+            <div class="map-stat-label">
+              PRESENT
+            </div>
+          </div>
+
+          <div class="map-stat">
+            <div class="map-stat-value"
+              style="color:var(--red)">
+              ${d.absent}
+            </div>
+            <div class="map-stat-label">
+              ABSENT
+            </div>
+          </div>
+
+          <div class="map-stat">
+            <div class="map-stat-value"
+              style="color:var(--green)">
+              ${d.called}
+            </div>
+            <div class="map-stat-label">
+              CALLED
+            </div>
+          </div>
+
         </div>
+
+        <svg class="map-svg"
+          width="170"
+          height="170"
+          viewBox="0 0 200 200">
+
+          <circle
+            cx="100"
+            cy="100"
+            r="70"
+            fill="none"
+            stroke="#00c6ff"
+            stroke-width="2"
+          />
+
+          <circle
+            cx="100"
+            cy="100"
+            r="45"
+            fill="none"
+            stroke="#00c6ff"
+            stroke-width="2"
+          />
+
+          <path
+            d="M30 100H170"
+            stroke="#00c6ff"
+            stroke-width="2"
+          />
+
+          <path
+            d="M100 30V170"
+            stroke="#00c6ff"
+            stroke-width="2"
+          />
+
+        </svg>
 
       </div>
 
-      <div class="map-box">
-        ${FLAGS[c] || "🌍"}
-      </div>
+      `;
 
-      <div class="stats">
+    }).join("");
 
-        <div class="stat">
-          <div class="stat-value">
-            ${d.total}
-          </div>
-          <div class="stat-label">
-            STUDENTS
-          </div>
-        </div>
+  /* TEST */
 
-        <div class="stat">
-          <div class="stat-value" style="color:#00e676">
-            ${d.present}
-          </div>
-          <div class="stat-label">
-            PRESENT
-          </div>
-        </div>
+  const testMap = {};
 
-        <div class="stat">
-          <div class="stat-value" style="color:#ff4d6d">
-            ${d.absent}
-          </div>
-          <div class="stat-label">
-            ABSENT
-          </div>
-        </div>
+  filtered.forEach(r=>{
 
-        <div class="stat">
-          <div class="stat-value" style="color:#00c6ff">
-            ${d.called}
-          </div>
-          <div class="stat-label">
-            CALL DONE
-          </div>
-        </div>
+    const t = r[1];
 
-      </div>
+    if(!testMap[t]){
 
-    </div>
-
-    `;
-
-  }).join("");
-
-  /* COUNTRY CHART */
-
-  const cLabels =
-  Object.keys(countryMap);
-
-  const cData =
-  cLabels.map(c=>countryMap[c].total);
-
-  if(countryChart)
-    countryChart.destroy();
-
-  countryChart =
-  new Chart(
-    document.getElementById("countryChart"),
-    {
-      type:"bar",
-
-      data:{
-        labels:cLabels,
-
-        datasets:[{
-          label:"Students",
-          data:cData,
-          borderWidth:1
-        }]
-      },
-
-      options:{
-        responsive:true,
-        plugins:{
-          legend:{
-            labels:{
-              color:"white"
-            }
-          }
-        },
-
-        scales:{
-          x:{
-            ticks:{
-              color:"white"
-            }
-          },
-
-          y:{
-            ticks:{
-              color:"white"
-            }
-          }
-        }
-
-      }
+      testMap[t] = {
+        total:0,
+        present:0,
+        absent:0,
+        scores:[]
+      };
 
     }
-  );
 
-  /* GRADE */
+    testMap[t].total++;
 
-  const gradeMap={};
+    if(r[10] === "Present"){
 
-  FILTERED.forEach(x=>{
+      testMap[t].present++;
 
-    if(!gradeMap[x.grade])
-      gradeMap[x.grade]=0;
+      testMap[t].scores.push(
+        Number(r[9] || 0)
+      );
 
-    gradeMap[x.grade]++;
+    }else{
+
+      testMap[t].absent++;
+
+    }
 
   });
 
-  if(gradeChart)
-    gradeChart.destroy();
+  document.getElementById("testBody").innerHTML =
+    Object.keys(testMap)
+    .map(t=>{
 
-  gradeChart =
-  new Chart(
-    document.getElementById("gradeChart"),
-    {
-      type:"doughnut",
+      const d = testMap[t];
 
-      data:{
-        labels:Object.keys(gradeMap),
+      const avg =
+        d.scores.length
+        ? (
+          d.scores.reduce((a,b)=>a+b,0)
+          / d.scores.length
+        ).toFixed(1)
+        : 0;
 
-        datasets:[{
-          data:Object.values(gradeMap)
-        }]
-      },
+      return `
 
-      options:{
-        plugins:{
-          legend:{
-            labels:{
-              color:"white"
-            }
-          }
-        }
-      }
+      <tr>
 
-    }
-  );
+        <td>${t}</td>
+
+        <td>${d.total}</td>
+
+        <td>${d.present}</td>
+
+        <td>${d.absent}</td>
+
+        <td>${avg}%</td>
+
+      </tr>
+
+      `;
+
+    }).join("");
 
   /* PENDING */
 
-  const pending =
-  FILTERED.filter(x=>!x.called);
+  const pendingRows =
+    filtered.filter(r=>!r[13]);
 
-  document.getElementById("pendingBody")
-  .innerHTML =
-  pending.map(x=>`
+  document.getElementById("pendingBody").innerHTML =
+    pendingRows.map((r,i)=>`
 
-    <tr>
+      <tr>
 
-      <td>${x.form}</td>
+        <td>${i+1}</td>
 
-      <td>${x.name}</td>
+        <td>${r[3]}</td>
 
-      <td>${FLAGS[x.country] || "🌍"} ${x.country}</td>
+        <td>${r[4]}</td>
 
-      <td>${x.grade}</td>
+        <td>Grade ${r[2]}</td>
 
-      <td>
-        <span class="chip red">
-          Pending
-        </span>
-      </td>
+        <td>
+          ${FLAGS[r[5]] || "🌍"}
+          ${r[5]}
+        </td>
 
-    </tr>
+        <td>${r[1]}</td>
 
-  `).join("");
+        <td>
+          <span class="chip red">
+            Pending
+          </span>
+        </td>
+
+      </tr>
+
+    `).join("");
+
+  /* FOOTER */
+
+  document.getElementById("footerStats")
+  .textContent =
+    `${total} Records | ${called} Called | ${pending} Pending`;
 
 }
 
-/* ===== AUTO ===== */
-
-loadData();
+/* AUTO REFRESH */
 
 setInterval(loadData,60000);
+
+/* INIT */
+
+loadData();
 
 </script>
 
