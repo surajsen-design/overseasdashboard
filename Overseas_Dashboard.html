@@ -798,15 +798,33 @@ async function loadData(){
 
     const response = await fetch(SHEET_API);
 
-    DATA = await response.json();
+    let rawData = await response.json();
+
+    /* REMOVE HEADER ROW */
+
+    DATA = rawData.slice(1);
+
+    /* FORMAT DATA */
 
     DATA = DATA.map(r=>{
 
-      r[13] =
-        r[13] === true ||
-        r[13] === "TRUE";
+      return {
 
-      return r;
+        test: r[0] || "",
+        grade: r[1] || "",
+        formNo: r[2] || "",
+        student: r[3] || "",
+        country: r[4] || "",
+        score: Number(r[5] || 0),
+        attendance: r[6] || "Absent",
+
+        called:
+          r[7] === true ||
+          r[7] === "TRUE" ||
+          r[7] === "Yes" ||
+          r[7] === "YES"
+
+      };
 
     });
 
@@ -816,7 +834,7 @@ async function loadData(){
 
   }catch(err){
 
-    console.log(err);
+    console.log("ERROR:",err);
 
   }
 
@@ -826,19 +844,28 @@ async function loadData(){
 
 function applyFilters(){
 
-  const g = document.getElementById("fGrade").value;
-  const c = document.getElementById("fCountry").value;
-  const s = document.getElementById("fCall").value;
+  const g =
+    document.getElementById("fGrade").value;
+
+  const c =
+    document.getElementById("fCountry").value;
+
+  const s =
+    document.getElementById("fCall").value;
 
   filtered = DATA.filter(r=>{
 
-    if(g && r[2] != g) return false;
+    if(g && r.grade != g)
+      return false;
 
-    if(c && r[5] != c) return false;
+    if(c && r.country != c)
+      return false;
 
-    if(s === "CALLED" && !r[13]) return false;
+    if(s === "CALLED" && !r.called)
+      return false;
 
-    if(s === "PENDING" && r[13]) return false;
+    if(s === "PENDING" && r.called)
+      return false;
 
     return true;
 
@@ -867,16 +894,15 @@ function render(){
   const total = filtered.length;
 
   const called =
-    filtered.filter(r=>r[13]).length;
+    filtered.filter(r=>r.called).length;
 
   const pending =
     total - called;
 
   const present =
-    filtered.filter(r=>r[10] === "Present").length;
-
-  const absent =
-    total - present;
+    filtered.filter(
+      r=>r.attendance === "Present"
+    ).length;
 
   const callPct =
     total
@@ -890,53 +916,57 @@ function render(){
 
   const scores =
     filtered
-    .filter(r=>r[10] === "Present")
-    .map(r=>Number(r[9] || 0));
+    .filter(r=>r.attendance === "Present")
+    .map(r=>r.score);
 
   const avg =
     scores.length
-    ? (scores.reduce((a,b)=>a+b,0)/scores.length).toFixed(1)
+    ? (
+        scores.reduce((a,b)=>a+b,0)
+        / scores.length
+      ).toFixed(1)
     : 0;
 
   const tests =
-    [...new Set(filtered.map(r=>r[1]))];
+    [...new Set(filtered.map(r=>r.test))];
 
   /* KPI */
 
-  document.getElementById("kTotal").textContent = total;
+  document.getElementById("kTotal").textContent =
+    total;
 
   document.getElementById("kCalled").textContent =
-  callPct + "%";
+    callPct + "%";
 
   document.getElementById("kAttend").textContent =
-  attPct + "%";
+    attPct + "%";
 
   document.getElementById("kAvg").textContent =
-  avg + "%";
+    avg + "%";
 
   document.getElementById("kPending").textContent =
-  pending;
+    pending;
 
   document.getElementById("kTests").textContent =
-  tests.length;
+    tests.length;
 
   document.getElementById("kSub1").textContent =
-  called + " called";
+    called + " called";
 
   document.getElementById("kSub2").textContent =
-  pending + " pending";
+    pending + " pending";
 
   document.getElementById("kSub3").textContent =
-  present + " present";
+    present + " present";
 
   document.getElementById("kSub4").textContent =
-  "Based on " + scores.length;
+    "Based on " + scores.length;
 
   document.getElementById("kSub5").textContent =
-  "Need action";
+    "Need action";
 
   document.getElementById("kSub6").textContent =
-  tests.join(", ");
+    tests.join(", ");
 
   /* DONUT */
 
@@ -950,15 +980,15 @@ function render(){
 
   document.getElementById("callPct")
   .textContent =
-  callPct + "%";
+    callPct + "%";
 
   document.getElementById("calledCount")
   .textContent =
-  called + " Called";
+    called + " Called";
 
   document.getElementById("pendingCount")
   .textContent =
-  pending + " Pending";
+    pending + " Pending";
 
   document.getElementById("attCircle")
   .setAttribute(
@@ -968,7 +998,7 @@ function render(){
 
   document.getElementById("attPct")
   .textContent =
-  attPct + "%";
+    attPct + "%";
 
   /* GRADE */
 
@@ -976,18 +1006,20 @@ function render(){
 
   filtered.forEach(r=>{
 
-    const g = r[2];
+    const g = r.grade;
 
     if(!gradeMap[g]){
+
       gradeMap[g] = {
         total:0,
         called:0
       };
+
     }
 
     gradeMap[g].total++;
 
-    if(r[13])
+    if(r.called)
       gradeMap[g].called++;
 
   });
@@ -999,44 +1031,48 @@ function render(){
     );
 
   document.getElementById("gradeChart").innerHTML =
-  Object.keys(gradeMap)
-  .sort((a,b)=>a-b)
-  .map(g=>{
+    Object.keys(gradeMap)
+    .sort((a,b)=>a-b)
+    .map(g=>{
 
-    const d = gradeMap[g];
+      const d = gradeMap[g];
 
-    const pct =
-      Math.round(d.called/d.total*100);
+      const pct =
+        Math.round(
+          d.called/d.total*100
+        );
 
-    const width =
-      d.total/max*100;
+      const width =
+        d.total/max*100;
 
-    return `
-    <div class="hbar-item">
+      return `
 
-      <div class="hbar-label">
-        Grade ${g}
-      </div>
+      <div class="hbar-item">
 
-      <div class="hbar-track">
+        <div class="hbar-label">
+          Grade ${g}
+        </div>
 
-        <div class="hbar-fill"
-          style="width:${width}%">
+        <div class="hbar-track">
 
-          ${d.total}
+          <div class="hbar-fill"
+            style="width:${width}%">
 
+            ${d.total}
+
+          </div>
+
+        </div>
+
+        <div class="hbar-pct">
+          ${pct}%
         </div>
 
       </div>
 
-      <div class="hbar-pct">
-        ${pct}%
-      </div>
+      `;
 
-    </div>
-    `;
-
-  }).join("");
+    }).join("");
 
   /* COUNTRY */
 
@@ -1044,7 +1080,7 @@ function render(){
 
   filtered.forEach(r=>{
 
-    const c = r[5] || "Other";
+    const c = r.country || "Other";
 
     if(!countryMap[c]){
 
@@ -1059,57 +1095,62 @@ function render(){
 
     countryMap[c].total++;
 
-    if(r[10] === "Present")
+    if(r.attendance === "Present")
       countryMap[c].present++;
     else
       countryMap[c].absent++;
 
-    if(r[13])
+    if(r.called)
       countryMap[c].called++;
 
   });
 
   document.getElementById("countryBody").innerHTML =
-  Object.keys(countryMap).map(c=>{
+    Object.keys(countryMap)
+    .map(c=>{
 
-    const d = countryMap[c];
+      const d = countryMap[c];
 
-    const pct =
-      Math.round(d.called/d.total*100);
+      const pct =
+        Math.round(
+          d.called/d.total*100
+        );
 
-    return `
-    <tr>
+      return `
 
-      <td>
-        ${FLAGS[c] || "🌍"} ${c}
-      </td>
+      <tr>
 
-      <td>${d.total}</td>
+        <td>
+          ${FLAGS[c] || "🌍"} ${c}
+        </td>
 
-      <td>${d.present}</td>
+        <td>${d.total}</td>
 
-      <td>${d.absent}</td>
+        <td>${d.present}</td>
 
-      <td>
+        <td>${d.absent}</td>
 
-        <span class="chip ${
-          pct >= 75
-          ? "green"
-          : pct >= 50
-          ? "orange"
-          : "red"
-        }">
+        <td>
 
-          ${pct}%
+          <span class="chip ${
+            pct >= 75
+            ? "green"
+            : pct >= 50
+            ? "orange"
+            : "red"
+          }">
 
-        </span>
+            ${pct}%
 
-      </td>
+          </span>
 
-    </tr>
-    `;
+        </td>
 
-  }).join("");
+      </tr>
+
+      `;
+
+    }).join("");
 
   /* TEST */
 
@@ -1117,7 +1158,7 @@ function render(){
 
   filtered.forEach(r=>{
 
-    const t = r[1];
+    const t = r.test;
 
     if(!testMap[t]){
 
@@ -1132,13 +1173,11 @@ function render(){
 
     testMap[t].total++;
 
-    if(r[10] === "Present"){
+    if(r.attendance === "Present"){
 
       testMap[t].present++;
 
-      testMap[t].scores.push(
-        Number(r[9] || 0)
-      );
+      testMap[t].scores.push(r.score);
 
     }else{
 
@@ -1149,76 +1188,79 @@ function render(){
   });
 
   document.getElementById("testBody").innerHTML =
-  Object.keys(testMap).map(t=>{
+    Object.keys(testMap)
+    .map(t=>{
 
-    const d = testMap[t];
+      const d = testMap[t];
 
-    const avg =
-      d.scores.length
-      ? (
-        d.scores.reduce((a,b)=>a+b,0)
-        / d.scores.length
-      ).toFixed(1)
-      : 0;
+      const avg =
+        d.scores.length
+        ? (
+            d.scores.reduce((a,b)=>a+b,0)
+            / d.scores.length
+          ).toFixed(1)
+        : 0;
 
-    return `
-    <tr>
+      return `
 
-      <td>${t}</td>
+      <tr>
 
-      <td>${d.total}</td>
+        <td>${t}</td>
 
-      <td>${d.present}</td>
+        <td>${d.total}</td>
 
-      <td>${d.absent}</td>
+        <td>${d.present}</td>
 
-      <td>${avg}%</td>
+        <td>${d.absent}</td>
 
-    </tr>
-    `;
+        <td>${avg}%</td>
 
-  }).join("");
+      </tr>
+
+      `;
+
+    }).join("");
 
   /* PENDING */
 
   const pendingRows =
-    filtered.filter(r=>!r[13]);
+    filtered.filter(r=>!r.called);
 
   document.getElementById("pendingBody").innerHTML =
-  pendingRows.map((r,i)=>`
+    pendingRows.map((r,i)=>`
 
-    <tr>
+      <tr>
 
-      <td>${i+1}</td>
+        <td>${i+1}</td>
 
-      <td>${r[3]}</td>
+        <td>${r.formNo}</td>
 
-      <td>${r[4]}</td>
+        <td>${r.student}</td>
 
-      <td>Grade ${r[2]}</td>
+        <td>Grade ${r.grade}</td>
 
-      <td>
-        ${FLAGS[r[5]] || "🌍"}
-        ${r[5]}
-      </td>
+        <td>
+          ${FLAGS[r.country] || "🌍"}
+          ${r.country}
+        </td>
 
-      <td>${r[1]}</td>
+        <td>${r.test}</td>
 
-      <td>
-        <span class="chip red">
-          Pending
-        </span>
-      </td>
+        <td>
+          <span class="chip red">
+            Pending
+          </span>
+        </td>
 
-    </tr>
+      </tr>
 
-  `).join("");
+    `).join("");
 
   /* FOOTER */
 
   document.getElementById("footerStats")
   .textContent =
-  `${total} Records | ${called} Called | ${pending} Pending`;
+    `${total} Records | ${called} Called | ${pending} Pending`;
 
 }
 
